@@ -2,8 +2,12 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Novalla - Search Millions of Books Instantly" },
+    {
+      name: "description",
+      content:
+        "Explore Novalla's vast collection of books across all genres. Search, discover, and dive into millions of books with ease. Find your next favorite read on Novalla!",
+    },
   ];
 };
 
