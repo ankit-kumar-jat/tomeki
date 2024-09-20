@@ -2,9 +2,5 @@ name = "novalla"
 pages_build_output_dir = "./build/client"
 send_metrics = false
 
-[site]
-bucket = "./public"
-entry-point = "."
-
 [build]
 command = "npm run build"
