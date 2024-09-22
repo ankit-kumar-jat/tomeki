@@ -18,7 +18,7 @@ function Logo({ ...rest }: SVGProps<SVGSVGElement>) {
         ry="5"
         fill="none"
         stroke="currentColor"
-        stroke-width="4"
+        strokeWidth="4"
       />
       <rect
         x="15"
@@ -28,7 +28,7 @@ function Logo({ ...rest }: SVGProps<SVGSVGElement>) {
         ry="5"
         fill="none"
         stroke="currentColor"
-        stroke-width="4"
+        strokeWidth="4"
         y="5"
       />
     </svg>

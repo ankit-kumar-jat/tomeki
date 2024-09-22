@@ -3,7 +3,7 @@ import { SearchIcon } from 'lucide-react'
 
 function Hero() {
   return (
-    <div className="container py-14 text-center">
+    <div className="py-14 text-center md:py-20 lg:py-24">
       <h1 className="mx-auto max-w-5xl text-balance text-3xl sm:text-5xl lg:text-6xl">
         Discover Millions of Books at Your Fingertips
       </h1>

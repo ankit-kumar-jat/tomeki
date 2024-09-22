@@ -21,6 +21,7 @@ function Header() {
         <nav className="font flex flex-wrap gap-3">
           {navLinks.map(({ title, ...rest }) => (
             <NavLink
+              key={title}
               className={({ isActive }) =>
                 cn(
                   'opacity-85 hover:opacity-100 focus-visible:opacity-100',
