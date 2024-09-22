@@ -1,0 +1,18 @@
+<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .favicon-stroke {
+    stroke-width: 4px;
+    stroke: #0a0a0a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+    .favicon-stroke { stroke: #ffffff }
+    }
+  </style>
+  <g id="logo-boxes">
+    <rect class="favicon-stroke" x="5" y="15" width="40" height="60" rx="5" ry="5" fill="none"
+      stroke-width="4" />
+    <rect class="favicon-stroke" x="15" width="40" height="60" rx="5" ry="5" fill="none"
+      stroke-width="4" y="5" />
+  </g>
+</svg>
