@@ -35,13 +35,24 @@ export interface DateTime {
   value: string
 }
 
+export type Description =
+  | {
+      type: string
+      value: string
+    }
+  | string
+
 export interface Work {
-  description?: string | null
-  covers: number[]
+  description?: Description
+  covers?: number[]
   key: string
   authors: AuthorRef[]
   title: string
   subjects: string[]
+  subject_places?: string[]
+  subject_times?: string[]
+  subject_people?: string[]
+  first_publish_date?: string
   type: Type
   latest_revision: number
   revision: number
@@ -51,28 +62,32 @@ export interface Work {
 
 // Lots of fields are missing from respose
 export interface Book {
-  publishers: string[]
-  series: string[]
-  covers: number[]
-  physical_format: string
-  key: string
-  publish_places: string[]
-  pagination: string
-  source_records: string[]
-  title: string
-  notes: Notes
-  number_of_pages: number
-  languages: Pick<Language, 'key'>[]
+  type: Type
   publish_date: string
   publish_country: string
-  by_statement: string
+  languages?: Pick<Language, 'key'>[]
+  authors: Pick<Author, 'key'>[]
+  work_titles?: string[]
+  other_titles?: string[]
+  series?: string[]
+  description?: Description
+  contributions?: string[]
+  subjects?: string[]
+  title: string
+  subtitle?: string
+  by_statement?: string
+  publishers?: string[]
+  publish_places?: string[]
+  pagination?: string
+  number_of_pages?: number
+  source_records?: string[]
+  covers?: number[]
   works: Pick<Work, 'key'>[]
-  type: Type
-  identifiers: object
-  ocaid: string
-  isbn_10: string[]
-  classifications: object
-  dewey_decimal_class: string[]
+  key: string
+  isbn_10?: string[]
+  isbn_13?: string[]
+  oclc_numbers?: string[]
+  dewey_decimal_class?: string[]
   latest_revision: number
   revision: number
   created: DateTime
@@ -110,7 +125,7 @@ export interface BookRatingsCounts {
 }
 
 export interface Bookshelve {
-  counts: BookshelvesCounts
+  counts: BookshelveCounts
 }
 
 export interface BookshelveCounts {
