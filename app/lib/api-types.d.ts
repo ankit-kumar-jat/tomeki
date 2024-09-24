@@ -199,8 +199,8 @@ export interface SearchResponse<T> {
   start?: number
   numFoundExact: boolean
   docs: T[]
-  num_found: number
-  q: string
+  num_found?: number
+  q?: string
   offset?: number
 }
 
@@ -211,11 +211,6 @@ export type SearchWorkItem<K extends SearchWorkKeys[]> = Pick<
 
 export type SearchAuthorItem<K extends SearchAuthorKeys[]> = Pick<
   SearchAuthor,
-  K[number]
->
-
-export type SearchSubjectItem<K extends SearchSubjectKeys[]> = Pick<
-  SearchSubject,
   K[number]
 >
 
@@ -341,7 +336,13 @@ export interface SearchSubject {
   count: number
 }
 
-export type SearchSubjectKeys = keyof SearchSubject
+export interface SearchList {
+  url: string
+  full_url: string
+  name: string
+  seed_count: number
+  last_update: string | null
+}
 
 export interface WorksBySubjectResponse {
   key: string

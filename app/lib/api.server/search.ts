@@ -1,9 +1,9 @@
 import {
   SearchAuthorItem,
   SearchAuthorKeys,
+  SearchList,
   SearchResponse,
-  SearchSubjectItem,
-  SearchSubjectKeys,
+  SearchSubject,
   SearchWorkItem,
   SearchWorkKeys,
 } from '../api-types'
@@ -11,12 +11,17 @@ import { apiClient, DAILY_CACHE_OPTIONS } from './api-client'
 
 interface BaseSearchOptions {
   q: string
-  sort?: 'old' | 'new' | 'rating' | 'readinglog' | 'editions'
   offset?: number
   limit?: number
 }
 
-interface SearchOptions<T> extends BaseSearchOptions {
+interface SearchWorksOptions<T> extends BaseSearchOptions {
+  sort?: 'old' | 'new' | 'rating' | 'readinglog' | 'editions'
+  fields: T[]
+}
+
+interface SearchAuthorsOptions<T> extends BaseSearchOptions {
+  sort?: 'work_count desc'
   fields: T[]
 }
 
@@ -29,7 +34,7 @@ export async function searchWorks<T extends SearchWorkKeys>({
   sort,
   offset,
   limit = 20,
-}: SearchOptions<T>) {
+}: SearchWorksOptions<T>) {
   const searchWorksRes = await apiClient<
     SearchResponse<SearchWorkItem<typeof fields>>
   >('/search.json', {
@@ -47,30 +52,39 @@ export async function searchAuthors<T extends SearchAuthorKeys>({
   sort,
   offset = 0,
   limit = 20,
-}: SearchOptions<T>) {
+}: SearchAuthorsOptions<T>) {
   const searchRes = await apiClient<
     SearchResponse<SearchAuthorItem<typeof fields>>
   >('/search/authors.json', {
-    params: { q, fields, sort, offset, limit },
+    params: { q, fields: fields.join(','), sort, offset, limit },
     cf: DAILY_CACHE_OPTIONS,
   })
 
   return searchRes
 }
 
-export async function searchSubjects<T extends SearchSubjectKeys>({
+export async function searchSubjects({
   q,
-  fields,
-  sort,
   offset = 0,
   limit = 20,
-}: SearchOptions<T>) {
-  const searchRes = await apiClient<
-    SearchResponse<SearchSubjectItem<typeof fields>>
-  >('/search/subjects.json', {
-    params: { q, fields, sort, offset, limit },
-    cf: DAILY_CACHE_OPTIONS,
-  })
+}: BaseSearchOptions) {
+  const searchRes = await apiClient<SearchResponse<SearchSubject>>(
+    '/search/subjects.json',
+    { params: { q, offset, limit }, cf: DAILY_CACHE_OPTIONS },
+  )
+
+  return searchRes
+}
+
+export async function searchLists({
+  q,
+  offset = 0,
+  limit = 20,
+}: BaseSearchOptions) {
+  const searchRes = await apiClient<SearchResponse<SearchList>>(
+    '/search/lists.json',
+    { params: { q, offset, limit }, cf: DAILY_CACHE_OPTIONS },
+  )
 
   return searchRes
 }
