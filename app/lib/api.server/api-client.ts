@@ -10,6 +10,7 @@ export const HOURLY_CACHE_OPTIONS: RequestInitCfProperties = {
     '404': 10 * 60, //10 minutes
     '500-599': 0,
   },
+  cacheEverything: true,
 }
 export const DAILY_CACHE_OPTIONS: RequestInitCfProperties = {
   cacheTtlByStatus: {
@@ -17,6 +18,7 @@ export const DAILY_CACHE_OPTIONS: RequestInitCfProperties = {
     '404': 1 * 60 * 60, // 1 hour
     '500-599': 0,
   },
+  cacheEverything: true,
 }
 
 export const WEEKLY_CACHE_OPTIONS: RequestInitCfProperties = {
@@ -25,6 +27,7 @@ export const WEEKLY_CACHE_OPTIONS: RequestInitCfProperties = {
     '404': 1 * 60 * 60, // 1 hour
     '500-599': 0,
   },
+  cacheEverything: true,
 }
 
 export async function apiClient<T>(
@@ -41,7 +44,7 @@ export async function apiClient<T>(
   const url = new URL(endpoint, API_URL)
   const headers = {
     'Content-Type': 'application/json',
-    'Accept-Encoding': 'gzip, br',
+    // 'Accept-Encoding': 'gzip, br',
     // TODO: load email from env
     'User-Agent': 'Novalla/1.0 (ankit@yopmail.com)',
   }
@@ -53,12 +56,13 @@ export async function apiClient<T>(
       ...headers,
       ...customConfig.headers,
     },
+    cache: undefined,
   }
 
   if (params) {
     for (const [key, value] of Object.entries(params)) {
       if (value !== null && value !== undefined) {
-        url.searchParams.set(key, encodeURIComponent(value))
+        url.searchParams.set(key, value)
       }
     }
   }
@@ -67,6 +71,7 @@ export async function apiClient<T>(
     config.body = JSON.stringify(body)
   }
 
+  console.log('🚀 ~ Fetch url:', url.toString())
   const res = await fetch(url.toString(), config)
 
   if (res.ok) {
