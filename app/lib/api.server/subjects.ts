@@ -66,7 +66,7 @@ function formatWorksBySubjectRes(subjectWorksRes?: WorksBySubjectResponse) {
     totalWorks: subjectWorksRes.work_count,
     works: subjectWorksRes.works.map(work => ({
       title: work.title,
-      author: work.authors.map(author => ({
+      authors: work.authors.map(author => ({
         key: author.key,
         id: author.key.split('/').pop(),
         name: author.name,
