@@ -196,7 +196,7 @@ export interface TrendingWorkAvailability {
 
 export interface SearchResponse<T> {
   numFound: number
-  start: number
+  start?: number
   numFoundExact: boolean
   docs: T[]
   num_found: number
@@ -211,6 +211,11 @@ export type SearchWorkItem<K extends SearchWorkKeys[]> = Pick<
 
 export type SearchAuthorItem<K extends SearchAuthorKeys[]> = Pick<
   SearchAuthor,
+  K[number]
+>
+
+export type SearchSubjectItem<K extends SearchSubjectKeys[]> = Pick<
+  SearchSubject,
   K[number]
 >
 
@@ -326,6 +331,17 @@ export interface SearchAuthor {
 }
 
 export type SearchAuthorKeys = keyof SearchAuthor
+
+export interface SearchSubject {
+  key: string
+  name: string
+  subject_type: string
+  work_count: number
+  type: string
+  count: number
+}
+
+export type SearchSubjectKeys = keyof SearchSubject
 
 export interface WorksBySubjectResponse {
   key: string
