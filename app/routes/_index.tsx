@@ -1,4 +1,8 @@
-import type { MetaFunction, LoaderFunctionArgs } from '@remix-run/node'
+import type {
+  MetaFunction,
+  LoaderFunctionArgs,
+  HeadersFunction,
+} from '@remix-run/node'
 import { json, useLoaderData } from '@remix-run/react'
 import Hero from '~/components/hero'
 import Section from '~/components/section'
@@ -36,8 +40,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
       textbookWorks,
       kidsWorks,
     },
-    { headers: { 'Cache-Control': 'public, max-age=3600' } },
+    { headers: { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' } },
   )
+}
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
 }
 
 export const meta: MetaFunction = () => {
