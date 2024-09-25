@@ -10,7 +10,7 @@ import '~/tailwind.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
 import GoogleAnalytics from './components/google-analytics'
-import GoogleAdsScript from './components/google-ads-script'
+import GoogleAdsScript from './components/google-ads/google-ads-script'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
