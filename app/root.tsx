@@ -9,6 +9,7 @@ import {
 import '~/tailwind.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
+import GoogleAnalytics from './components/google-analytics'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -52,6 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
+      <GoogleAnalytics />
       <Header />
       <Outlet />
       <Footer />
