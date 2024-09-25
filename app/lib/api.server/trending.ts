@@ -33,7 +33,7 @@ function formatTrendingWorks(
         name: trendingWork.author_name[index],
       })),
       key: trendingWork.key,
-      workId: trendingWork.key.split('/').pop(),
+      workId: trendingWork.key.split('/').pop() ?? '',
       coverId: trendingWork.cover_i,
       coverEditionId: trendingWork.cover_edition_key,
       firstPublishYear: trendingWork.first_publish_year,

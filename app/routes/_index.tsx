@@ -16,7 +16,6 @@ import WorkCard from '~/components/work-card'
 import { getLanguages } from '~/lib/api.server/languages'
 import { getWorksBySubject, popularSubjects } from '~/lib/api.server/subjects'
 import { getTrendingWorks } from '~/lib/api.server/trending'
-import { getCoverImage } from '~/lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const [
@@ -84,24 +83,26 @@ export default function Index() {
       <Hero />
       <Section className="my-10 lg:mb-14" title="Trending Today">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {trendingToday.map(({ title, key, coverId, authors }) => (
+          {trendingToday.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>
       </Section>
       <Section className="my-10 lg:mb-14" title="Best of All Time">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {trendingAllTime.map(({ title, key, coverId, authors }) => (
+          {trendingAllTime.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>
@@ -119,48 +120,52 @@ export default function Index() {
       </Section>
       <Section className="my-10 lg:mb-14" title="Romance">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {romanceWorks.map(({ title, key, coverId, authors }) => (
+          {romanceWorks.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>
       </Section>
       <Section className="my-10 lg:mb-14" title="Thrillers">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {thrillerWorks.map(({ title, key, coverId, authors }) => (
+          {thrillerWorks.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>
       </Section>
       <Section className="my-10 lg:mb-14" title="Textbooks">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {textbookWorks.map(({ title, key, coverId, authors }) => (
+          {textbookWorks.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>
       </Section>
       <Section className="my-10 lg:mb-14" title="Kids">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {kidsWorks.map(({ title, key, coverId, authors }) => (
+          {kidsWorks.map(({ title, key, coverId, authors, workId }) => (
             <WorkCard
               key={key}
               title={title}
               coverId={coverId}
               authors={authors}
+              workId={workId}
             />
           ))}
         </div>

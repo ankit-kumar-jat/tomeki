@@ -24,7 +24,8 @@ function formatLanguages(languages?: Language[]) {
 
   return languages.map(language => ({
     title: language.name,
-    langId: language.key.split('/').pop(),
+    key: language.key,
+    langId: language.key.split('/').pop() ?? '',
     booksCount: language.count,
   }))
 }

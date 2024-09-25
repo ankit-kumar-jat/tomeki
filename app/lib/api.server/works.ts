@@ -56,7 +56,7 @@ function formatWork(work?: Work) {
     title: work.title,
     covers: work.covers,
     key: work.key,
-    workId: work.key.split('/').pop(),
+    workId: work.key.split('/').pop() ?? '',
     description:
       typeof work.description === 'string'
         ? work.description
@@ -67,7 +67,7 @@ function formatWork(work?: Work) {
     subjectPeople: work.subject_people,
     authors: work.authors.map(author => ({
       key: author.author.key,
-      authorId: author.author.key.split('/').pop(),
+      authorId: author.author.key.split('/').pop() ?? '',
     })),
   }
 }
@@ -79,7 +79,7 @@ function formatEdition(edition?: Book) {
     title: edition.title,
     covers: edition.covers ? edition.covers : [],
     key: edition.key,
-    editionId: edition.key.split('/').pop(),
+    editionId: edition.key.split('/').pop() ?? '',
     pagesCount: edition.number_of_pages,
     languages: edition.languages
       ? edition.languages.map(language => language.key)

@@ -68,11 +68,11 @@ function formatWorksBySubjectRes(subjectWorksRes?: WorksBySubjectResponse) {
       title: work.title,
       authors: work.authors.map(author => ({
         key: author.key,
-        id: author.key.split('/').pop(),
+        id: author.key.split('/').pop() ?? '',
         name: author.name,
       })),
       key: work.key,
-      workId: work.key.split('/').pop(),
+      workId: work.key.split('/').pop() ?? '',
       coverId: work.cover_id,
       coverEditionId: work.cover_edition_key,
       leadingEditionId: work.lending_edition,
