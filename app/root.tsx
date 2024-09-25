@@ -19,6 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <meta name="google-adsense-account" content="ca-pub-6892126566030270" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
