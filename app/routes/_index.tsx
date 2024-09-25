@@ -82,7 +82,7 @@ export default function Index() {
   return (
     <div className="container">
       <Hero />
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Trending Today">
+      <Section className="my-10 lg:mb-14" title="Trending Today">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {trendingToday.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -94,7 +94,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Best of All Time">
+      <Section className="my-10 lg:mb-14" title="Best of All Time">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {trendingAllTime.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -106,7 +106,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Browse by Subject">
+      <Section className="my-10 lg:mb-14" title="Browse by Subject">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {popularSubjects.map(({ title, id }) => (
             <Card key={id}>
@@ -117,7 +117,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Romance">
+      <Section className="my-10 lg:mb-14" title="Romance">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {romanceWorks.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -129,7 +129,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Thrillers">
+      <Section className="my-10 lg:mb-14" title="Thrillers">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {thrillerWorks.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -141,7 +141,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Textbooks">
+      <Section className="my-10 lg:mb-14" title="Textbooks">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {textbookWorks.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -153,7 +153,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Kids">
+      <Section className="my-10 lg:mb-14" title="Kids">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {kidsWorks.map(({ title, key, coverId, authors }) => (
             <WorkCard
@@ -165,7 +165,7 @@ export default function Index() {
           ))}
         </div>
       </Section>
-      <Section className="mb-6 md:mb-8 lg:mb-10" title="Browse By Language">
+      <Section className="my-10 lg:mb-14" title="Browse By Language">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {languages.map(({ title, langId, booksCount }) => (
             <Card key={langId}>
