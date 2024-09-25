@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useResponsive } from '~/components/hooks/use-responsive'
 import { featureFlags } from '~/config/feature-flags'
 
-function HorizontalAdsBanner() {
+function AdsterraHorizontalAdsBanner() {
   const { isMobile } = useResponsive()
 
-  if (!featureFlags.enableAdsterraAds) return null
   return (
     <div className="my-6 flex h-14 max-w-full flex-col items-center justify-center overflow-auto border text-center md:h-24">
       {isMobile ? <MobileBanner /> : <DesktopBanner />}
@@ -64,4 +63,9 @@ function DesktopBanner() {
   return <div className="hidden max-w-full md:inline" ref={banner} />
 }
 
-export default HorizontalAdsBanner
+const AdsterraHorizontalAdsBannerWithFeatureFlagCheck = () => {
+  if (!featureFlags.enableAdsterraAds) return null
+  return <AdsterraHorizontalAdsBanner />
+}
+
+export { AdsterraHorizontalAdsBannerWithFeatureFlagCheck as AdsterraHorizontalAdsBanner }

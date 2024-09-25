@@ -2,15 +2,15 @@ import { useEffect, useRef } from 'react'
 import { cn } from '~/lib/utils'
 import { featureFlags } from '~/config/feature-flags'
 
-function NativeAdsBanner({ className }: { className?: string }) {
+interface AdsterraNativeAdsBannerProps {
+  className?: string
+}
+
+function AdsterraNativeAdsBanner({ className }: AdsterraNativeAdsBannerProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (
-      ref.current &&
-      !ref.current.firstChild &&
-      featureFlags.enableAdsterraAds
-    ) {
+    if (ref.current && !ref.current.firstChild) {
       const script = document.createElement('script')
       script.async = true
       script.src = `//pl24483228.cpmrevenuegate.com/fb8cd7b4855f767509167134a2cd3a2a/invoke.js`
@@ -18,8 +18,6 @@ function NativeAdsBanner({ className }: { className?: string }) {
       ref.current.appendChild(script)
     }
   }, [])
-
-  if (!featureFlags.enableAdsterraAds) return false
 
   return (
     <div className={cn('my-6 min-h-48 border', className)}>
@@ -29,4 +27,12 @@ function NativeAdsBanner({ className }: { className?: string }) {
   )
 }
 
-export default NativeAdsBanner
+const AdsterraNativeAdsBannerWithFeatureFlagCheck = ({
+  className,
+}: AdsterraNativeAdsBannerProps) => {
+  if (!featureFlags.enableAdsterraAds) return null
+
+  return <AdsterraNativeAdsBanner className={className} />
+}
+
+export { AdsterraNativeAdsBannerWithFeatureFlagCheck as AdsterraNativeAdsBanner }
