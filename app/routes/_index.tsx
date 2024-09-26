@@ -1,3 +1,4 @@
+import { SEOHandle } from '@nasa-gcn/remix-seo'
 import type {
   MetaFunction,
   LoaderFunctionArgs,
@@ -53,6 +54,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+}
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => [
+    {
+      route: '/',
+      changefreq: 'daily',
+      priority: 1.0,
+    },
+  ],
 }
 
 export const meta: MetaFunction = () => {
