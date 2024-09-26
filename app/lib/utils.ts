@@ -5,6 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function isIn<T>(values: readonly T[], x: any): x is T {
+  return values.includes(x)
+}
+
 export interface CoverImageOptions {
   type: 'isbn' | 'oclc' | 'olid' | 'id'
   id: string | number

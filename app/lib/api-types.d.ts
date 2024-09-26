@@ -270,9 +270,9 @@ export interface SearchWork {
   person: string[]
   ia_loaded_id: string[]
   ia_box_id: string[]
-  ratings_average: number
-  ratings_sortable: number
-  ratings_count: number
+  ratings_average?: number
+  ratings_sortable?: number
+  ratings_count?: number
   ratings_count_1: number
   ratings_count_2: number
   ratings_count_3: number

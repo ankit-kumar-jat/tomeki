@@ -16,7 +16,7 @@ interface BaseSearchOptions {
 }
 
 interface SearchWorksOptions<T> extends BaseSearchOptions {
-  sort?: 'old' | 'new' | 'rating' | 'readinglog' | 'editions'
+  sort?: (typeof searchWorksSortValues)[number]
   fields: T[]
 }
 
@@ -24,6 +24,14 @@ interface SearchAuthorsOptions<T> extends BaseSearchOptions {
   sort?: 'work_count desc'
   fields: T[]
 }
+
+export const searchWorksSortValues = [
+  'old',
+  'new',
+  'rating',
+  'readinglog',
+  'editions',
+] as const
 
 // https://openlibrary.org/search.json?q=subject%3Aromance&mode=everything&sort=rating&limit=1
 // https://openlibrary.org/search.json?q=key:/works/OL16336633W
