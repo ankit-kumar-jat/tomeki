@@ -20,7 +20,7 @@ function AdsterraNativeAdsBanner({ className }: AdsterraNativeAdsBannerProps) {
   }, [])
 
   return (
-    <div className={cn('my-6 min-h-48 border', className)}>
+    <div className={cn('my-6 min-h-48 overflow-hidden border', className)}>
       <div ref={ref} />
       <div id="container-fb8cd7b4855f767509167134a2cd3a2a" />
     </div>

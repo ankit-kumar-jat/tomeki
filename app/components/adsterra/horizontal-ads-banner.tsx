@@ -6,7 +6,7 @@ function AdsterraHorizontalAdsBanner() {
   const { isMobile } = useResponsive()
 
   return (
-    <div className="my-6 flex h-14 max-w-full flex-col items-center justify-center overflow-auto border text-center md:h-24">
+    <div className="my-6 flex h-14 flex-col items-center justify-center overflow-hidden border text-center md:h-24">
       {isMobile ? <MobileBanner /> : <DesktopBanner />}
     </div>
   )
@@ -35,7 +35,7 @@ function MobileBanner() {
     }
   }, [banner])
 
-  return <div className="inline max-w-full md:hidden" ref={banner} />
+  return <div className="inline overflow-hidden md:hidden" ref={banner} />
 }
 function DesktopBanner() {
   const banner = useRef<HTMLDivElement>(null)
@@ -60,7 +60,7 @@ function DesktopBanner() {
     }
   }, [banner])
 
-  return <div className="hidden max-w-full md:inline" ref={banner} />
+  return <div className="hidden overflow-hidden md:inline" ref={banner} />
 }
 
 const AdsterraHorizontalAdsBannerWithFeatureFlagCheck = () => {
