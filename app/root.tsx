@@ -21,6 +21,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="google-adsense-account" content="ca-pub-6892126566030270" />
+        <meta
+          name="google-site-verification"
+          content="1hpD3F6TiKBWMlBhsy7ccjfR_AjyK4L-K4wXCsFijRw"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
