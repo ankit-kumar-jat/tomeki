@@ -5,7 +5,7 @@ import { getCoverImage } from '~/lib/utils'
 interface WorkCardProps {
   title: string
   workId: string
-  coverId: number
+  coverId?: number
   authors: {
     name: string
   }[]
@@ -27,13 +27,25 @@ function WorkCard({ title, coverId, authors, workId }: WorkCardProps) {
           View {title} {byString}{' '}
         </span>
       </Link>
-      <img
-        src={getCoverImage({ type: 'id', size: 'M', id: coverId })}
-        alt={`Cover of ${title} ${byString.toLowerCase()}`}
-        width={192}
-        height={288}
-        className="aspect-[2/3] h-auto w-48 max-w-full border object-cover"
-      />
+      <div>
+        {coverId ? (
+          <img
+            src={getCoverImage({ type: 'id', size: 'M', id: coverId })}
+            alt={`Cover of ${title} ${byString.toLowerCase()}`}
+            width={192}
+            height={288}
+            className="aspect-[2/3] h-auto w-48 max-w-full border object-cover"
+          />
+        ) : (
+          <div className="aspect-[2/3] w-48 max-w-full p-3">
+            <div className="border-2">
+              <p className="text-center capitalize text-muted-foreground">
+                {title}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="max-w-48">
         <p className="mt-2 line-clamp-2 leading-5">{title}</p>
         <p className="line-clamp-2 text-sm text-muted-foreground">{byString}</p>

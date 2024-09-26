@@ -30,6 +30,7 @@ function SearchForm({
         placeholder={placeholder}
         defaultValue={searchValue}
         autoComplete="off"
+        autoFocus
       />
       <button
         className="absolute right-14 top-0 px-2 py-3 peer-placeholder-shown:invisible"
