@@ -42,7 +42,7 @@ export default function Index() {
         </nav>
       </div>
       <div className="container my-6 lg:my-8">
-        <div className="max-w-3xl">
+        <div>
           <Outlet />
         </div>
       </div>

@@ -25,8 +25,8 @@ export interface AuthorImageOptions {
   size?: 'S' | 'M' | 'L'
 }
 
-export function getAuthorImage(options: AuthorImageOptions) {
-  return getCoverImage(options)
+export function getAuthorImage({ type, id, size = 'M' }: AuthorImageOptions) {
+  return `https://covers.openlibrary.org/a/${type}/${id}-${size}.jpg`
 }
 
 /**
