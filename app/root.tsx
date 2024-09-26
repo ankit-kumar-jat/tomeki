@@ -9,8 +9,9 @@ import {
 import '~/tailwind.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
-import GoogleAnalytics from './components/google-analytics'
-import GoogleAdsScript from './components/google-ads/google-ads-script'
+import GoogleAnalytics from '~/components/google-analytics'
+import GoogleAdsScript from '~/components/google-ads/google-ads-script'
+import { ProgressBar } from '~/components/progress-bar'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -59,11 +60,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
-      <GoogleAnalytics />
-      <GoogleAdsScript />
       <Header />
       <Outlet />
       <Footer />
+      <GoogleAnalytics />
+      <GoogleAdsScript />
+      <ProgressBar />
     </>
   )
 }
