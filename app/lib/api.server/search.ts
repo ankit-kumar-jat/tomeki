@@ -89,10 +89,12 @@ export async function searchLists({
   offset = 0,
   limit = 20,
 }: BaseSearchOptions) {
-  const searchRes = await apiClient<SearchResponse<SearchList>>(
-    '/search/lists.json',
-    { params: { q, offset, limit }, cf: DAILY_CACHE_OPTIONS },
-  )
+  const searchRes = await apiClient<
+    Pick<SearchResponse<SearchList>, 'docs' | 'start'>
+  >('/search/lists.json', {
+    params: { q, offset, limit },
+    cf: DAILY_CACHE_OPTIONS,
+  })
 
   return searchRes
 }
