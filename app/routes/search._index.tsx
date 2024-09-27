@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { StarIcon } from 'lucide-react'
 import { AdsterraHorizontalAdsBanner } from '~/components/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
@@ -22,12 +22,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const offset = Number(url.searchParams.get('offset')) || 0
   const sort = url.searchParams.get('sort') ?? ''
 
+  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+
   if (!q) {
-    return {
-      numFound: 0,
-      foundExact: false,
-      works: [],
-    }
+    return json(
+      {
+        numFound: 0,
+        foundExact: false,
+        works: [],
+      },
+      { headers },
+    )
   }
 
   const searchRes = await searchWorks({
@@ -48,11 +53,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
     ],
   })
 
-  return {
-    numFound: searchRes?.numFound ?? searchRes?.num_found ?? 0,
-    foundExact: searchRes?.numFoundExact ?? false,
-    works: searchRes?.docs?.length ? searchRes.docs : [],
-  }
+  return json(
+    {
+      numFound: searchRes?.numFound ?? searchRes?.num_found ?? 0,
+      foundExact: searchRes?.numFoundExact ?? false,
+      works: searchRes?.docs?.length ? searchRes.docs : [],
+    },
+    { headers },
+  )
+}
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
 }
 
 export default function Index() {

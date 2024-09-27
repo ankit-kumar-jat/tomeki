@@ -85,53 +85,52 @@ export default function Index() {
     ? getCoverImage({ type: 'id', id: work.cover_i })
     : undefined
   return (
-    <div className="my-14">
-      <div className="container relative">
+    <div className="mb-14">
+      <div className="container relative mb-10 pt-20 md:mb-14 md:pt-32 lg:pt-48">
         <AdeptiveBlurBackground coverImageUrl={coverImageUrl} />
-        <div className="mb-10 mt-20 md:mb-14 md:mt-32 lg:mt-48">
-          <div className="flex gap-6 md:gap-10">
-            <div className="flex-shrink-0">
-              <CoverImage title={work.title} coverImageUrl={coverImageUrl} />
-            </div>
-            <div className="flex flex-col gap-2 md:gap-4">
-              <div className="mb-2 sm:mb-4">
-                <h1 className="line-clamp-2 text-lg font-extrabold tracking-wide drop-shadow-md sm:text-xl md:text-3xl lg:text-4xl">
-                  {work.title}
-                </h1>
-                <p className="mt-2 line-clamp-2 max-w-96 text-sm font-medium drop-shadow-sm sm:text-base">
-                  By {work.author_name?.toString() ?? ''}
-                </p>
-              </div>
-              <p className="flex items-center gap-4 text-xs font-medium uppercase tracking-wide opacity-70 md:text-sm">
-                <span>{work.first_publish_year}</span>
-                <span className="h-1 w-1 rounded-full bg-foreground" />
-                <span>{work.number_of_pages_median} pages</span>
+
+        <div className="flex gap-6 md:gap-10">
+          <div className="flex-shrink-0">
+            <CoverImage title={work.title} coverImageUrl={coverImageUrl} />
+          </div>
+          <div className="flex flex-col gap-2 md:gap-4">
+            <div className="mb-2 sm:mb-4">
+              <h1 className="line-clamp-2 text-lg font-extrabold tracking-wide drop-shadow-md sm:text-xl md:text-3xl lg:text-4xl">
+                {work.title}
+              </h1>
+              <p className="mt-2 line-clamp-2 max-w-96 text-sm font-medium drop-shadow-sm sm:text-base">
+                By {work.author_name?.toString() ?? ''}
               </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="flex flex-shrink-0 items-center gap-1 text-sm md:text-base">
-                  <StarIcon
-                    width={18}
-                    fill="currentColor"
-                    className="opacity-80"
-                  />
-                  <span className="font-medium">
-                    {work.ratings_average?.toFixed(2) ?? '0'}{' '}
-                  </span>
-                  <span>({work.ratings_count ?? 0} Ratings)</span>
+            </div>
+            <p className="flex items-center gap-4 text-xs font-medium uppercase tracking-wide opacity-70 md:text-sm">
+              <span>{work.first_publish_year}</span>
+              <span className="h-1 w-1 rounded-full bg-foreground" />
+              <span>{work.number_of_pages_median} pages</span>
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="flex flex-shrink-0 items-center gap-1 text-sm md:text-base">
+                <StarIcon
+                  width={18}
+                  fill="currentColor"
+                  className="opacity-80"
+                />
+                <span className="font-medium">
+                  {work.ratings_average?.toFixed(2) ?? '0'}{' '}
                 </span>
-                <div className="hidden flex-shrink-0 md:block">
-                  <BookshelvesData
-                    alreadyRead={work.already_read_count}
-                    currentlyReading={work.currently_reading_count}
-                    wantToRead={work.want_to_read_count}
-                  />
-                </div>
+                <span>({work.ratings_count ?? 0} Ratings)</span>
+              </span>
+              <div className="hidden flex-shrink-0 md:block">
+                <BookshelvesData
+                  alreadyRead={work.already_read_count}
+                  currentlyReading={work.currently_reading_count}
+                  wantToRead={work.want_to_read_count}
+                />
               </div>
-              <div className="mt-2 hidden md:block">
-                <p className="tracking-wide drop-shadow-sm">
-                  {/* can add someting here for large screens */}
-                </p>
-              </div>
+            </div>
+            <div className="mt-2 hidden md:block">
+              <p className="tracking-wide drop-shadow-sm">
+                {/* can add someting here for large screens */}
+              </p>
             </div>
           </div>
         </div>
@@ -188,13 +187,13 @@ function AdeptiveBlurBackground({ coverImageUrl = '' }) {
     <div className="absolute inset-0 -z-10">
       {coverImageUrl ? (
         <img
-          className="aspect-video h-auto w-full object-cover opacity-75 blur-[60px] md:blur-[80px] lg:blur-[100px]"
+          className="aspect-[2/3] h-auto w-full object-fill opacity-75 blur-[60px] sm:aspect-video md:blur-[80px] lg:blur-[100px]"
           width={1280}
           height={720}
           src={coverImageUrl}
         />
       ) : (
-        <div className="aspect-video h-auto w-full bg-muted-foreground opacity-75 blur-[80px] md:blur-[100px] lg:blur-[160px]"></div>
+        <div className="aspect-[2/3] h-auto w-full bg-muted-foreground opacity-75 blur-[80px] sm:aspect-video md:blur-[100px] lg:blur-[160px]"></div>
       )}
     </div>
   )

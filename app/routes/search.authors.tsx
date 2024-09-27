@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
@@ -12,12 +12,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const q = url.searchParams.get('q')
   const offset = Number(url.searchParams.get('offset')) || 0
 
+  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+
   if (!q) {
-    return {
-      numFound: 0,
-      foundExact: false,
-      authors: [],
-    }
+    return json(
+      {
+        numFound: 0,
+        foundExact: false,
+        authors: [],
+      },
+      { headers },
+    )
   }
 
   const searchRes = await searchAuthors({
@@ -26,11 +31,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
     fields: ['name', 'key', 'top_subjects', 'work_count', 'top_work'],
   })
 
-  return {
-    numFound: searchRes?.numFound ?? searchRes?.num_found ?? 0,
-    foundExact: searchRes?.numFoundExact ?? false,
-    authors: searchRes?.docs?.length ? searchRes.docs : [],
-  }
+  return json(
+    {
+      numFound: searchRes?.numFound ?? searchRes?.num_found ?? 0,
+      foundExact: searchRes?.numFoundExact ?? false,
+      authors: searchRes?.docs?.length ? searchRes.docs : [],
+    },
+    { headers },
+  )
+}
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
 }
 
 export default function Index() {

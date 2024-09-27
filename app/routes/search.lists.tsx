@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
-import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
 import SearchForm from '~/components/search-form'
@@ -9,19 +9,31 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const q = url.searchParams.get('q')
 
+  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+
   if (!q) {
-    return {
-      numFound: 0,
-      lists: [],
-    }
+    return json(
+      {
+        numFound: 0,
+        lists: [],
+      },
+      { headers },
+    )
   }
 
   const searchRes = await searchLists({ q, limit: 10 })
 
-  return {
-    numFound: 100,
-    lists: searchRes?.docs?.length ? searchRes.docs : [],
-  }
+  return json(
+    {
+      numFound: 100,
+      lists: searchRes?.docs?.length ? searchRes.docs : [],
+    },
+    { headers },
+  )
+}
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
 }
 
 export default function Index() {
