@@ -15,7 +15,7 @@ function Header() {
       <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
         <Link to="/" className="flex items-center gap-1">
           <Logo height={36} width={36} />
-          <span className="text-xl font-medium">Novalla</span>
+          <span className="text-xl font-medium">Tomeki</span>
         </Link>
 
         <nav className="font flex flex-wrap gap-3">

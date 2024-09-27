@@ -5,7 +5,7 @@ import { routes } from 'virtual:remix/server-build'
 
 export function loader({ request, context }: LoaderFunctionArgs) {
   return generateSitemap(request, routes, {
-    siteUrl: 'https://novalla.pages.dev',
+    siteUrl: 'https://www.tomeki.site',
     headers: { 'Cache-Control': `public, max-age=${60 * 5}` },
   })
 }

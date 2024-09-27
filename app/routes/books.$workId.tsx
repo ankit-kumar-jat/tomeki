@@ -60,7 +60,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return data
     ? [
         {
-          title: `${data.work.title} by ${data.work.author_name?.join(', ')} | Novalla`,
+          title: `${data.work.title} by ${data.work.author_name?.join(', ')} | Tomeki`,
         },
         {
           name: 'description',

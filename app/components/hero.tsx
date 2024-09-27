@@ -8,7 +8,7 @@ function Hero() {
         Discover Millions of Books at Your Fingertips
       </h1>
       <p className="mx-auto mt-6 max-w-screen-sm text-balance text-sm md:text-base lg:max-w-screen-md">
-        Explore a vast library of books across genres and authors. With Novalla,
+        Explore a vast library of books across genres and authors. With Tomeki,
         finding your next great read is just a search away. Dive into a world of
         literature, from timeless classics to contemporary gems.
       </p>

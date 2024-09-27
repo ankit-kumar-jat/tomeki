@@ -4,11 +4,11 @@ import { cn } from '~/lib/utils'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Search Millions of Books Instantly | Novalla' },
+    { title: 'Search Millions of Books Instantly | Tomeki' },
     {
       name: 'description',
       content:
-        'Search, discover, and dive into millions of books with ease. Find your next favorite read on Novalla!',
+        'Search, discover, and dive into millions of books with ease. Find your next favorite read on Tomeki!',
     },
   ]
 }

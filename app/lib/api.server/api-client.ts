@@ -46,7 +46,7 @@ export async function apiClient<T>(
     'Content-Type': 'application/json',
     // 'Accept-Encoding': 'gzip, br',
     // TODO: load email from env
-    'User-Agent': 'Novalla/1.0 (ankit@yopmail.com)',
+    'User-Agent': 'Tomeki/1.0 (ankit@yopmail.com)',
   }
 
   const config: RequestInit = {
