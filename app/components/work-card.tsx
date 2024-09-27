@@ -37,9 +37,9 @@ function WorkCard({ title, coverId, authors, workId }: WorkCardProps) {
             className="aspect-[2/3] h-auto w-48 max-w-full border object-cover"
           />
         ) : (
-          <div className="aspect-[2/3] w-48 max-w-full p-3">
-            <div className="border-2">
-              <p className="text-center capitalize text-muted-foreground">
+          <div className="aspect-[2/3] w-48 max-w-full bg-muted p-3">
+            <div className="flex w-full items-center justify-center border-4 border-white">
+              <p className="line-clamp-6 text-center capitalize text-muted-foreground">
                 {title}
               </p>
             </div>

@@ -6,7 +6,7 @@ export async function getWorkById({ workId }: { workId: string }) {
     cf: WEEKLY_CACHE_OPTIONS,
   })
 
-  return formatWork(work)
+  return work
 }
 
 export async function getWorkEditions({ workId }: { workId: string }) {
@@ -17,7 +17,7 @@ export async function getWorkEditions({ workId }: { workId: string }) {
     },
   )
 
-  return formatWorkEditionsRes(workEditionsRes)
+  return workEditionsRes
 }
 
 export async function getBookshelveDataByWorkId({
@@ -50,7 +50,7 @@ export async function getEditionById({ editionId }: { editionId: string }) {
   return formatEdition(edition)
 }
 
-function formatWork(work?: Work) {
+export function formatWork(work?: Work) {
   if (!work) return undefined
   return {
     title: work.title,
@@ -72,7 +72,7 @@ function formatWork(work?: Work) {
   }
 }
 
-function formatEdition(edition?: Book) {
+export function formatEdition(edition?: Book) {
   if (!edition) return undefined
 
   return {
@@ -94,7 +94,7 @@ function formatEdition(edition?: Book) {
   }
 }
 
-function formatWorkEditionsRes(workEditionsRes?: ListResponse<Book>) {
+export function formatWorkEditionsRes(workEditionsRes?: ListResponse<Book>) {
   if (!workEditionsRes) {
     return {
       totalEditions: 0,
@@ -107,7 +107,7 @@ function formatWorkEditionsRes(workEditionsRes?: ListResponse<Book>) {
   }
 }
 
-function formatBookshelveRes(bookshelveData?: Bookshelve) {
+export function formatBookshelveRes(bookshelveData?: Bookshelve) {
   if (!bookshelveData) {
     return {
       wantToRead: 0,
