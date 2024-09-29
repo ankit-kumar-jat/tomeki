@@ -1,8 +1,16 @@
 import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
-import { useLoaderData, json, Link, useParams } from '@remix-run/react'
+import {
+  useLoaderData,
+  json,
+  Link,
+  useParams,
+  useSearchParams,
+} from '@remix-run/react'
 import { Pagination } from '~/components/pagination'
 import { formatWorkEditionsRes, getWorkEditions } from '~/lib/api.server/works'
 import { getCoverImage } from '~/lib/utils'
+
+const PER_PAGE_LIMT = 10
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const bookId = params.bookId ?? ''
@@ -19,7 +27,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     throw json({ errorMessage: 'Invalid bookId' }, { status: 404, headers })
   }
 
-  const workEditionsRes = await getWorkEditions({ workId, offset, limit: 10 })
+  const workEditionsRes = await getWorkEditions({
+    workId,
+    offset,
+    limit: PER_PAGE_LIMT,
+  })
   const formattedWorkEditionsRes = formatWorkEditionsRes(workEditionsRes)
   return json(
     {
@@ -36,6 +48,11 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 
 export default function BookEditions() {
   const { editions, totalEditions } = useLoaderData<typeof loader>()
+  const [searchParams] = useSearchParams()
+  const offset = Number(searchParams.get('offset')) || 0
+
+  const pageStart = offset + 1
+  const pageEnd = offset + PER_PAGE_LIMT
 
   return (
     <div className="container">
@@ -43,10 +60,8 @@ export default function BookEditions() {
         <div className="space-y-4 lg:col-span-7">
           <div className="text-sm font-medium md:text-base">
             <p>
-              {totalEditions.toLocaleString('en-US', {
-                maximumFractionDigits: 0,
-              })}{' '}
-              Editions
+              {pageStart}-{pageEnd > totalEditions ? totalEditions : pageEnd} of{' '}
+              {totalEditions} Editions
             </p>
           </div>
           <div className="space-y-2">
@@ -65,7 +80,10 @@ export default function BookEditions() {
             ))}
           </div>
           <div>
-            <Pagination totalItems={totalEditions} rowsPerPage={10} />
+            <Pagination
+              totalItems={totalEditions}
+              rowsPerPage={PER_PAGE_LIMT}
+            />
           </div>
         </div>
         <div className="lg:col-span-5">

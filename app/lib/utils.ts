@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { SITE_NAME, SITE_URL } from '~/config/site'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -7,6 +8,14 @@ export function cn(...inputs: ClassValue[]) {
 
 export function isIn<T>(values: readonly T[], x: any): x is T {
   return values.includes(x)
+}
+
+export function getMetaTitle(title: string) {
+  return `${title} | ${SITE_NAME}`
+}
+
+export function getFullURL(path: string) {
+  return `${SITE_URL}${path}`
 }
 
 export interface CoverImageOptions {

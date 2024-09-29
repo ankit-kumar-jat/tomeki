@@ -6,10 +6,9 @@ import type {
 import type { ShouldRevalidateFunction } from '@remix-run/react'
 import { json, NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import { StarIcon } from 'lucide-react'
-import { SITE_URL } from '~/config/site'
 import { searchWorks } from '~/lib/api.server/search'
 import { getWorkById } from '~/lib/api.server/works'
-import { cn, getCoverImage } from '~/lib/utils'
+import { cn, getCoverImage, getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const bookId = params.bookId ?? ''
@@ -93,7 +92,6 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
 }) => {
-  console.log('🚀 ~ currentParams, nextParams,:', currentParams, nextParams)
   if (currentParams !== nextParams) {
     return true // only revalidate if work/edition changed
   }
@@ -117,13 +115,13 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       : (data.work.description?.value ?? '')
 
   return [
-    { title: `${title} | Tomeki` },
+    { title: getMetaTitle(title) },
     { property: 'og:title', content: title },
     { name: 'description', content: desc },
     {
       tagName: 'link',
       rel: 'canonical',
-      href: `${SITE_URL}/books/${data.workId}`,
+      href: getFullURL(`/books/${data.workId}`),
     },
   ]
 }
@@ -172,7 +170,7 @@ export default function Index() {
                 By {work.author_name?.toString() ?? ''}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-1">
               <span className="flex flex-shrink-0 items-center gap-1 text-sm md:text-base">
                 <StarIcon
                   width={18}
@@ -201,6 +199,13 @@ export default function Index() {
         </div>
       </div>
       <div className="container my-8 md:my-10">
+        <div className="my-4 md:hidden">
+          <BookshelvesData
+            alreadyRead={work.already_read_count}
+            currentlyReading={work.currently_reading_count}
+            wantToRead={work.want_to_read_count}
+          />
+        </div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
           <BookStatsCard
             title="Publish Date"
@@ -296,11 +301,20 @@ function BookshelvesData({
 }) {
   return (
     <div className="flex flex-nowrap items-center gap-2 text-xs md:text-sm">
-      <span>{wantToRead} Want to read</span>
+      <span>
+        <span className="font-medium">{wantToRead}</span>
+        <span> Want to read</span>
+      </span>
       <span className="h-1 w-1 rounded-full bg-foreground/70" />
-      <span>{currentlyReading} Currently reading</span>
+      <span>
+        <span className="font-medium">{currentlyReading}</span>
+        <span> Currently reading</span>
+      </span>
       <span className="h-1 w-1 rounded-full bg-foreground/70" />
-      <span>{alreadyRead} Have read</span>
+      <span>
+        <span className="font-medium">{alreadyRead}</span>
+        <span> Have read</span>
+      </span>
     </div>
   )
 }
@@ -312,11 +326,11 @@ interface BookStatsCardProps {
 
 function BookStatsCard({ title, value }: BookStatsCardProps) {
   return (
-    <div className="space-y-1 rounded-md border p-3 md:px-4">
+    <div className="space-y-1 rounded-md border border-foreground/40 p-3 md:px-4">
       <p className="text-sm font-normal uppercase tracking-wide drop-shadow-md lg:text-base">
         {title}
       </p>
-      <p className="text-base font-semibold drop-shadow-md">
+      <p className="line-clamp-2 text-sm font-semibold drop-shadow-md md:text-base">
         {value ? value : '-'}
       </p>
     </div>
