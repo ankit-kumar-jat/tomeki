@@ -10,7 +10,7 @@ interface SectionProps {
 function Section({ children, className, title }: SectionProps) {
   return (
     <div className={cn('', className)}>
-      <h2 className="mb-8 text-2xl font-light uppercase md:mb-12 md:text-4xl">
+      <h2 className="mb-8 text-2xl font-light uppercase drop-shadow-md md:mb-12 md:text-4xl">
         <span className="relative">
           {title}
           <span className="absolute -bottom-3 -right-4 h-4 w-10 border-b-2 border-r-2 border-foreground bg-transparent md:border-b-[3px] md:border-r-[3px]" />
