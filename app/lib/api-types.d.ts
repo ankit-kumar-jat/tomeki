@@ -295,9 +295,33 @@ export interface SearchWork {
   subject_key: string[]
   ddc_sort: string
   time_key: string[]
+  editions: SearchResponse<SearchEdition>
 }
 
-export type SearchWorkKeys = keyof SearchWork
+export type SearchWorkKeys = keyof SearchWork | 'editions.*'
+
+export interface SearchEdition {
+  key: string
+  type: string
+  title: string
+  subtitle?: string
+  title_sort: string
+  title_suggest: string
+  cover_i?: number
+  language?: string[]
+  publisher?: string[]
+  publish_date?: string[]
+  publish_year?: number[]
+  isbn?: string[]
+  id_amazon?: string[]
+  ia: string[]
+  ia_collection: string[]
+  ia_box_id: string[]
+  ebook_access: string
+  has_fulltext: boolean
+  public_scan_b: boolean
+  publisher_facet?: string[]
+}
 
 export interface SearchAuthor {
   alternate_names: string[]

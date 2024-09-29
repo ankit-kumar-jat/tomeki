@@ -18,6 +18,9 @@ interface BaseSearchOptions {
 interface SearchWorksOptions<T> extends BaseSearchOptions {
   sort?: (typeof searchWorksSortValues)[number]
   fields: T[]
+  lang?: string
+  mode?: (typeof searchWorksModes)[number]
+  hasFullText?: boolean
 }
 
 interface SearchAuthorsOptions<T> extends BaseSearchOptions {
@@ -31,6 +34,13 @@ export const searchWorksSortValues = [
   'rating',
   'readinglog',
   'editions',
+  'ebook_access',
+] as const
+
+export const searchWorksModes = [
+  'everything',
+  'ebooks',
+  'printdisabled',
 ] as const
 
 // https://openlibrary.org/search.json?q=subject%3Aromance&mode=everything&sort=rating&limit=1
@@ -42,11 +52,23 @@ export async function searchWorks<T extends SearchWorkKeys>({
   sort,
   offset,
   limit = 20,
+  lang,
+  mode,
+  hasFullText,
 }: SearchWorksOptions<T>) {
   const searchWorksRes = await apiClient<
     SearchResponse<SearchWorkItem<typeof fields>>
   >('/search.json', {
-    params: { q, fields: fields.join(','), sort, offset, limit },
+    params: {
+      q,
+      fields: fields.join(','),
+      sort,
+      offset,
+      limit,
+      lang,
+      mode,
+      has_fulltext: hasFullText,
+    },
     cf: DAILY_CACHE_OPTIONS,
   })
 

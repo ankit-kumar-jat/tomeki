@@ -9,12 +9,20 @@ export async function getWorkById({ workId }: { workId: string }) {
   return work
 }
 
-export async function getWorkEditions({ workId }: { workId: string }) {
+interface GetWorkEditionsOptions {
+  workId: string
+  offset?: number
+  limit?: number
+}
+
+export async function getWorkEditions({
+  workId,
+  offset = 0,
+  limit = 20,
+}: GetWorkEditionsOptions) {
   const workEditionsRes = await apiClient<ListResponse<Book>>(
     `/works/${workId}/editions.json`,
-    {
-      cf: WEEKLY_CACHE_OPTIONS,
-    },
+    { params: { offset, limit }, cf: WEEKLY_CACHE_OPTIONS },
   )
 
   return workEditionsRes
@@ -77,12 +85,13 @@ export function formatEdition(edition?: Book) {
 
   return {
     title: edition.title,
+    subtitle: edition.subtitle,
     covers: edition.covers ? edition.covers : [],
     key: edition.key,
     editionId: edition.key.split('/').pop() ?? '',
     pagesCount: edition.number_of_pages,
     languages: edition.languages
-      ? edition.languages.map(language => language.key)
+      ? edition.languages.map(language => language.key.split('/').pop())
       : [],
     subjects: edition.subjects,
     description:
@@ -91,6 +100,8 @@ export function formatEdition(edition?: Book) {
         : edition.description?.value,
     works: edition.works,
     authors: edition.authors,
+    publishDate: edition.publish_date,
+    publisher: edition.publishers?.join(', '),
   }
 }
 
