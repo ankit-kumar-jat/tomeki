@@ -1,4 +1,15 @@
-import { SITE_NAME, SITE_URL } from '~/config/site'
+import type { MetaFunction, HeadersFunction } from '@remix-run/node'
+import { SITE_NAME } from '~/config/site'
+import { getMetaTitle } from '~/lib/utils'
+
+export const headers: HeadersFunction = () => {
+  // cache for 5 min
+  return { 'Cache-Control': 'public, max-age=300, s-max-age=300' }
+}
+
+export const meta: MetaFunction = () => {
+  return [{ title: getMetaTitle('Privacy policy') }]
+}
 
 export default function PrivacyPolicy() {
   return (
