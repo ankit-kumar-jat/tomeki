@@ -95,7 +95,7 @@ export default function SubjectWorks() {
             ))}
           </div>
           <div className="flex justify-center">
-            <Pagination totalItems={totalWorks} />
+            <Pagination totalItems={totalWorks} rowsPerPage={PER_PAGE_LIMIT} />
           </div>
         </div>
       </div>

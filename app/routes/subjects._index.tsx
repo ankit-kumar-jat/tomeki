@@ -11,7 +11,7 @@ import { getMetaTitle } from '~/lib/utils'
 export async function loader({ request }: LoaderFunctionArgs) {
   const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
 
-  return json({ popularSubjects }, { headers })
+  return json({ subjects: popularSubjects }, { headers })
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -30,6 +30,7 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
+  const { subjects } = useLoaderData<typeof loader>()
   return (
     <div className="container my-10">
       <div className="py-10 md:py-14">
@@ -38,7 +39,7 @@ export default function Index() {
         </h1>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-        {popularSubjects.map(({ title, id }) => (
+        {subjects.map(({ title, id }) => (
           <Link
             to={`/subjects/${id}`}
             key={id}
