@@ -92,7 +92,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentParams,
   nextParams,
 }) => {
-  if (currentParams !== nextParams) {
+  if (currentParams.bookId !== nextParams.bookId) {
     return true // only revalidate if work/edition changed
   }
   return false
@@ -224,7 +224,7 @@ export default function Index() {
         </div>
       </div>
       <div className="container my-4 border-b md:my-6 lg:my-8">
-        <nav className="flex gap-2">
+        <nav className="flex gap-2" id="book-naviagtion">
           {navLinks.map(({ title, ...rest }) => (
             <NavLink
               className={({ isActive }) =>
@@ -234,6 +234,7 @@ export default function Index() {
                 )
               }
               key={title}
+              preventScrollReset
               {...rest}
             >
               {title}

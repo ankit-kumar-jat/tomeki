@@ -54,6 +54,10 @@ export default function BookEditions() {
   const pageStart = offset + 1
   const pageEnd = offset + PER_PAGE_LIMT
 
+  const handlePageChange = () => {
+    document.getElementById('book-naviagtion')?.scrollIntoView()
+  }
+
   return (
     <div className="container">
       <div className="grid lg:grid-cols-12">
@@ -83,6 +87,8 @@ export default function BookEditions() {
             <Pagination
               totalItems={totalEditions}
               rowsPerPage={PER_PAGE_LIMT}
+              onPageChange={handlePageChange}
+              preventScrollReset
             />
           </div>
         </div>

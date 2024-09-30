@@ -14,11 +14,15 @@ import usePagination from '~/components/hooks/use-pagination'
 interface PaginationWithControlProps {
   totalItems: number
   rowsPerPage?: number
+  onPageChange?: (offset: number) => void
+  preventScrollReset?: boolean
 }
 
 function PaginationWithControl({
   totalItems,
   rowsPerPage = 20,
+  onPageChange,
+  preventScrollReset = false,
 }: PaginationWithControlProps) {
   const [pageCount, setPageCount] = useState(0)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -33,11 +37,15 @@ function PaginationWithControl({
   })
 
   const changePage = (newOffset: number) => {
-    setSearchParams(prev => {
-      if (newOffset < 1) prev.delete('offset')
-      else prev.set('offset', `${newOffset}`)
-      return prev
-    })
+    setSearchParams(
+      prev => {
+        if (newOffset < 1) prev.delete('offset')
+        else prev.set('offset', `${newOffset}`)
+        return prev
+      },
+      { preventScrollReset },
+    )
+    if (onPageChange) onPageChange(newOffset)
   }
 
   useEffect(() => {
