@@ -186,14 +186,16 @@ export default function Index() {
       <Section className="my-10 lg:mb-14" title="Browse By Language">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {languages.map(({ title, langId, booksCount }) => (
-            <Card key={langId}>
-              <CardHeader className="h-full justify-center">
-                <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-                <CardDescription className="text-sm">
-                  {booksCount} Books
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <Link
+              to={`/languages/${langId}`}
+              key={langId}
+              className="flex flex-col justify-center rounded-md border px-4 py-6"
+            >
+              <span className="line-clamp-2 text-lg font-medium md:text-xl">
+                {title}
+              </span>
+              <span>{booksCount.toLocaleString('en-US')} Books</span>
+            </Link>
           ))}
         </div>
       </Section>
