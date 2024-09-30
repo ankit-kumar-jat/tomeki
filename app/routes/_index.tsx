@@ -4,7 +4,7 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
 } from '@remix-run/node'
-import { json, useLoaderData } from '@remix-run/react'
+import { json, Link, useLoaderData } from '@remix-run/react'
 import Hero from '~/components/hero'
 import Section from '~/components/section'
 import {
@@ -121,11 +121,13 @@ export default function Index() {
       <Section className="my-10 lg:mb-14" title="Browse by Subject">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {popularSubjects.map(({ title, id }) => (
-            <Card key={id}>
-              <CardHeader className="h-full justify-center">
-                <CardTitle className="text-xl font-semibold">{title}</CardTitle>
-              </CardHeader>
-            </Card>
+            <Link
+              to={`/subjects/${id}`}
+              key={id}
+              className="flex items-center rounded-md border px-4 py-6"
+            >
+              <span className="text-lg font-medium md:text-xl">{title}</span>
+            </Link>
           ))}
         </div>
       </Section>
