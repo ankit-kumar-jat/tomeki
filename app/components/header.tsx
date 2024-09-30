@@ -6,7 +6,7 @@ const navLinks = [
   { to: '/', title: 'Home', end: true },
   { to: '/search', title: 'Search' },
   { to: '/subjects', title: 'Subjects' },
-  { to: '/lists', title: 'Lists' },
+  { to: '/about', title: 'About Us' },
 ]
 
 function Header() {
