@@ -4,7 +4,7 @@ import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizonta
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import SearchForm from '~/components/search-form'
-import { searchAuthors } from '~/lib/api.server/search'
+import { searchAuthors } from '~/lib/api/search.server'
 import { getAuthorImage } from '~/lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {

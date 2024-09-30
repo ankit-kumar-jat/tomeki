@@ -4,12 +4,15 @@ import type {
   HeadersFunction,
 } from '@remix-run/node'
 import { json, useLoaderData, useSearchParams } from '@remix-run/react'
+import { SEOHandle } from '@nasa-gcn/remix-seo'
+import { serverOnly$ } from 'vite-env-only/macros'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import WorkCard from '~/components/work-card'
-import { searchWorks } from '~/lib/api.server/search'
+import { searchWorks } from '~/lib/api/search.server'
 import { getMetaTitle } from '~/lib/utils'
+import { getLanguages } from '~/lib/api/languages.server'
 
 const PER_PAGE_LIMIT = 24
 
@@ -54,6 +57,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+}
+
+export const handle: SEOHandle = {
+  getSitemapEntries: serverOnly$(async () => {
+    const languages = await getLanguages({ limit: 36 })
+    return languages.map(language => {
+      return {
+        route: `/languages/${language.langId}`,
+        priority: 0.4,
+      }
+    })
+  }),
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {

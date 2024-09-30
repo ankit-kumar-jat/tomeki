@@ -8,7 +8,7 @@ import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizonta
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import WorkCard from '~/components/work-card'
-import { getWorksBySubject } from '~/lib/api.server/subjects'
+import { getWorksBySubject } from '~/lib/api/subjects.server'
 import { getMetaTitle } from '~/lib/utils'
 
 // TODO: api has more functionalities like similer subjects

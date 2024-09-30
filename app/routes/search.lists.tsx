@@ -3,7 +3,7 @@ import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import SearchForm from '~/components/search-form'
-import { searchLists } from '~/lib/api.server/search'
+import { searchLists } from '~/lib/api/search.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)

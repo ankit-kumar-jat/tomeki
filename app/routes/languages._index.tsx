@@ -7,7 +7,7 @@ import { json, Link, useLoaderData, useSearchParams } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Button } from '~/components/ui/button'
-import { getLanguages } from '~/lib/api.server/languages'
+import { getLanguages } from '~/lib/api/languages.server'
 import { getMetaTitle } from '~/lib/utils'
 
 const BASIC_PAGE_LIMIT = 36

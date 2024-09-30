@@ -4,7 +4,7 @@ import type {
   HeadersFunction,
 } from '@remix-run/node'
 import { json, Link, useLoaderData } from '@remix-run/react'
-import { popularSubjects } from '~/lib/api.server/subjects'
+import { popularSubjects } from '~/lib/api/subjects.server'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { getMetaTitle } from '~/lib/utils'
 

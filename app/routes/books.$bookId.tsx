@@ -6,8 +6,8 @@ import type {
 import type { ShouldRevalidateFunction } from '@remix-run/react'
 import { json, NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import { StarIcon } from 'lucide-react'
-import { searchWorks } from '~/lib/api.server/search'
-import { getWorkById } from '~/lib/api.server/works'
+import { searchWorks } from '~/lib/api/search.server'
+import { getWorkById } from '~/lib/api/works.server'
 import { cn, getCoverImage, getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ params }: LoaderFunctionArgs) {

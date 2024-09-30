@@ -5,7 +5,7 @@ import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizonta
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import SearchForm from '~/components/search-form'
-import { searchWorks, searchWorksSortValues } from '~/lib/api.server/search'
+import { searchWorks, searchWorksSortValues } from '~/lib/api/search.server'
 import { getCoverImage, isIn } from '~/lib/utils'
 import {
   Select,

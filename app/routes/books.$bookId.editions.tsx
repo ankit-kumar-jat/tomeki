@@ -7,7 +7,7 @@ import {
   useSearchParams,
 } from '@remix-run/react'
 import { Pagination } from '~/components/pagination'
-import { formatWorkEditionsRes, getWorkEditions } from '~/lib/api.server/works'
+import { formatWorkEditionsRes, getWorkEditions } from '~/lib/api/works.server'
 import { getCoverImage } from '~/lib/utils'
 
 const PER_PAGE_LIMT = 10

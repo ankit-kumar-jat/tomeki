@@ -1,5 +1,5 @@
 import { Book, BookRatings, Bookshelve, ListResponse, Work } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client'
+import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 export async function getWorkById({ workId }: { workId: string }) {
   const work = await apiClient<Work>(`/works/${workId}.json`, {

@@ -1,5 +1,5 @@
 import { SortOprions, WorksBySubjectResponse } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client'
+import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 interface PopularSubject {
   id: string

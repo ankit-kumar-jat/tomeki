@@ -1,5 +1,5 @@
 import { TrendingWorksResponse } from '../api-types'
-import { apiClient, DAILY_CACHE_OPTIONS } from './api-client'
+import { apiClient, DAILY_CACHE_OPTIONS } from './api-client.server'
 
 interface GetTrendingWorksOptions {
   type: 'now' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'forever'

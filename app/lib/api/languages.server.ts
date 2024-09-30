@@ -1,5 +1,5 @@
 import { Language } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client'
+import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 interface getLanguagesOptions {
   limit?: number

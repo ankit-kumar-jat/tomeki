@@ -4,7 +4,7 @@ import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizonta
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import SearchForm from '~/components/search-form'
-import { searchSubjects } from '~/lib/api.server/search'
+import { searchSubjects } from '~/lib/api/search.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)

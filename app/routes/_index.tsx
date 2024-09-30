@@ -14,9 +14,9 @@ import {
   CardTitle,
 } from '~/components/ui/card'
 import WorkCard from '~/components/work-card'
-import { getLanguages } from '~/lib/api.server/languages'
-import { getWorksBySubject, popularSubjects } from '~/lib/api.server/subjects'
-import { getTrendingWorks } from '~/lib/api.server/trending'
+import { getLanguages } from '~/lib/api/languages.server'
+import { getWorksBySubject, popularSubjects } from '~/lib/api/subjects.server'
+import { getTrendingWorks } from '~/lib/api/trending.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const [
