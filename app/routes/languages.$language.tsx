@@ -4,8 +4,8 @@ import type {
   HeadersFunction,
 } from '@remix-run/node'
 import { json, useLoaderData, useSearchParams } from '@remix-run/react'
-import { AdsterraHorizontalAdsBanner } from '~/components/adsterra/horizontal-ads-banner'
-import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
+import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
+import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import WorkCard from '~/components/work-card'
 import { searchWorks } from '~/lib/api.server/search'

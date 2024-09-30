@@ -5,7 +5,7 @@ import type {
 } from '@remix-run/node'
 import { json, Link, useLoaderData } from '@remix-run/react'
 import { popularSubjects } from '~/lib/api.server/subjects'
-import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
+import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { getMetaTitle } from '~/lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {

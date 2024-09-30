@@ -10,7 +10,7 @@ import '~/tailwind.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
 import GoogleAnalytics from '~/components/google-analytics'
-import GoogleAdsScript from '~/components/google-ads/google-ads-script'
+import GoogleAdsScript from '~/components/ads/google/google-ads-script'
 import { ProgressBar } from '~/components/progress-bar'
 
 export function Layout({ children }: { children: React.ReactNode }) {

@@ -4,8 +4,8 @@ import type {
   HeadersFunction,
 } from '@remix-run/node'
 import { json, Link, useLoaderData, useSearchParams } from '@remix-run/react'
-import { AdsterraHorizontalAdsBanner } from '~/components/adsterra/horizontal-ads-banner'
-import { AdsterraNativeAdsBanner } from '~/components/adsterra/native-ads-banner'
+import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
+import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Button } from '~/components/ui/button'
 import { getLanguages } from '~/lib/api.server/languages'
 import { getMetaTitle } from '~/lib/utils'
