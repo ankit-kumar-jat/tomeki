@@ -9,9 +9,10 @@ import {
 import '~/tailwind.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
+import { ProgressBar } from '~/components/progress-bar'
 import GoogleAnalytics from '~/components/google-analytics'
 import GoogleAdsScript from '~/components/ads/google/google-ads-script'
-import { ProgressBar } from '~/components/progress-bar'
+import InfolinksAdsScript from './components/ads/infolinks/infolinks-ads-script'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -59,9 +60,10 @@ export default function App() {
       <Header />
       <Outlet />
       <Footer />
+      <ProgressBar />
       <GoogleAnalytics />
       <GoogleAdsScript />
-      <ProgressBar />
+      <InfolinksAdsScript />
     </>
   )
 }

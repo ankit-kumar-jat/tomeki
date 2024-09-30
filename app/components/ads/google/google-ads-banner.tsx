@@ -1,7 +1,7 @@
 import { useLocation } from '@remix-run/react'
 import { useEffect, useState } from 'react'
 import { featureFlags } from '~/config/feature-flags'
-import { GOOGLE_ADS_PUB_ID } from '~/config/google-ads'
+import { GOOGLE_ADS_PUB_ID } from '~/config/ads/google'
 
 interface GoogleAdsBannerProps {
   adSlot: string
