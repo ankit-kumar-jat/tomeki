@@ -40,11 +40,10 @@ const colors = [
   '#588B8B',
   '#ACE894',
   '#433633',
-  '#b91c1c',
-  '#b45309',
-  '#0e7490',
-  '#a21caf',
-  '#be123c',
+  '#dc2626',
+  '#d97706',
+  '#0891b2',
+  '#e11d48',
 ]
 
 function DynamicBlurBackground() {
@@ -52,7 +51,7 @@ function DynamicBlurBackground() {
   return (
     <div className="absolute inset-0 -z-10">
       <div
-        className="h-full w-full opacity-50 blur-[100px]"
+        className="h-full w-full rounded-3xl opacity-60 blur-[150px] sm:rounded-none md:opacity-40 md:blur-[100px]"
         style={{ backgroundColor: radomColor }}
       ></div>
     </div>

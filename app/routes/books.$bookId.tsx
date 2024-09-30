@@ -253,13 +253,13 @@ function AdeptiveBlurBackground({ coverImageUrl = '' }) {
     <div className="absolute inset-0 -z-10">
       {coverImageUrl ? (
         <img
-          className="aspect-[2/3] h-auto w-full object-fill opacity-75 blur-[60px] sm:aspect-video md:blur-[80px] lg:blur-[100px]"
+          className="aspect-[2/3] h-auto w-full object-fill opacity-50 blur-[100px] sm:aspect-video md:opacity-65"
           width={1280}
           height={720}
           src={coverImageUrl}
         />
       ) : (
-        <div className="aspect-[2/3] h-auto w-full bg-muted-foreground opacity-75 blur-[80px] sm:aspect-video md:blur-[100px] lg:blur-[160px]"></div>
+        <div className="aspect-[2/3] h-auto w-full bg-muted-foreground opacity-60 blur-[150px] sm:aspect-video"></div>
       )}
     </div>
   )
