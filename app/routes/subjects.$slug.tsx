@@ -4,11 +4,13 @@ import type {
   HeadersFunction,
 } from '@remix-run/node'
 import { json, Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import { SEOHandle } from '@nasa-gcn/remix-seo'
+import { serverOnly$ } from 'vite-env-only/macros'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import WorkCard from '~/components/work-card'
-import { getWorksBySubject } from '~/lib/api/subjects.server'
+import { getWorksBySubject, popularSubjects } from '~/lib/api/subjects.server'
 import { getMetaTitle } from '~/lib/utils'
 
 // TODO: api has more functionalities like similer subjects
@@ -43,6 +45,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+}
+
+export const handle: SEOHandle = {
+  getSitemapEntries: serverOnly$(async () => {
+    return popularSubjects.map(subject => {
+      return {
+        route: `/subjects/${subject.id}`,
+        priority: 0.4,
+      }
+    })
+  }),
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {

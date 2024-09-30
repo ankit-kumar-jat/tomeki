@@ -1,12 +1,14 @@
 import {
   vitePlugin as remix,
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
-} from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+} from '@remix-run/dev'
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { envOnlyMacros } from 'vite-env-only'
 
 export default defineConfig({
   plugins: [
+    envOnlyMacros(),
     remixCloudflareDevProxy(),
     remix({
       future: {
@@ -17,4 +19,4 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-});
+})
