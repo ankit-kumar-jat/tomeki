@@ -22,8 +22,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const offset = Number(url.searchParams.get('offset')) || 0
   const sort = url.searchParams.get('sort') ?? ''
 
-  // const headers = { 'Cache-Control': 'public, max-age=86400, s-max-age=86400' }
-  const headers = {}
+  const headers = { 'Cache-Control': 'public, max-age=86400, s-max-age=86400' }
 
   const subjectData = await getWorksBySubject({
     subject: subjectSlug,

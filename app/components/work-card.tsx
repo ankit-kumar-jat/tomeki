@@ -38,8 +38,8 @@ function WorkCard({ title, coverId, authors, workId }: WorkCardProps) {
           />
         ) : (
           <div className="aspect-[2/3] w-48 max-w-full bg-muted p-3">
-            <div className="flex w-full items-center justify-center border-4 border-white">
-              <p className="line-clamp-6 text-center capitalize text-muted-foreground">
+            <div className="flex h-full w-full items-center justify-center border-4 border-white">
+              <p className="line-clamp-6 p-1 text-center capitalize text-muted-foreground">
                 {title}
               </p>
             </div>
