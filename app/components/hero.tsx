@@ -1,5 +1,6 @@
 import { Form } from '@remix-run/react'
 import { SearchIcon } from 'lucide-react'
+import { useMemo } from 'react'
 
 function Hero() {
   return (
@@ -47,7 +48,11 @@ const colors = [
 ]
 
 function DynamicBlurBackground() {
-  const radomColor = colors[Math.floor(Math.random() * colors.length)]
+  const radomColor = useMemo(
+    () => colors[Math.floor(Math.random() * colors.length)],
+    [],
+  )
+
   return (
     <div className="absolute inset-0 -z-10">
       <div

@@ -25,7 +25,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json(
     {
-      numFound: 100,
+      numFound: searchRes?.docs?.length ? 10 : 0,
       lists: searchRes?.docs?.length ? searchRes.docs : [],
     },
     { headers },
