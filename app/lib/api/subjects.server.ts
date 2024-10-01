@@ -1,5 +1,5 @@
 import { SortOprions, WorksBySubjectResponse } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
+import { openLibApiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 interface PopularSubject {
   id: string
@@ -40,7 +40,7 @@ export async function getWorksBySubject({
   offset = 0,
   sort,
 }: GetWorksBySubjectOptions) {
-  const subjectWorksRes = await apiClient<WorksBySubjectResponse>(
+  const subjectWorksRes = await openLibApiClient<WorksBySubjectResponse>(
     `/subjects/${subject}.json`,
     {
       params: { limit, offset, sort },

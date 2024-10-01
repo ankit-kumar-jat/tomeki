@@ -1,5 +1,5 @@
 import { Language } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
+import { openLibApiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 interface getLanguagesOptions {
   limit?: number
@@ -10,7 +10,7 @@ export async function getLanguages({
   limit = 600, //To get all languages at once
   offset = 0,
 }: getLanguagesOptions = {}) {
-  const languages = await apiClient<Language[]>('/languages.json', {
+  const languages = await openLibApiClient<Language[]>('/languages.json', {
     params: { limit, offset },
     cf: WEEKLY_CACHE_OPTIONS,
     cache: 'force-cache',

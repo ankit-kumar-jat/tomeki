@@ -5,7 +5,7 @@ import { cn } from '~/lib/utils'
 const navLinks = [
   { to: '/', title: 'Home', end: true },
   { to: '/search', title: 'Search' },
-  { to: '/subjects', title: 'Subjects' },
+  { to: '/blogs', title: 'Blog' },
   { to: '/about', title: 'About Us' },
 ]
 

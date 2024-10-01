@@ -1,8 +1,8 @@
 import { Book, BookRatings, Bookshelve, ListResponse, Work } from '../api-types'
-import { apiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
+import { openLibApiClient, WEEKLY_CACHE_OPTIONS } from './api-client.server'
 
 export async function getWorkById({ workId }: { workId: string }) {
-  const work = await apiClient<Work>(`/works/${workId}.json`, {
+  const work = await openLibApiClient<Work>(`/works/${workId}.json`, {
     cf: WEEKLY_CACHE_OPTIONS,
   })
 
@@ -20,7 +20,7 @@ export async function getWorkEditions({
   offset = 0,
   limit = 20,
 }: GetWorkEditionsOptions) {
-  const workEditionsRes = await apiClient<ListResponse<Book>>(
+  const workEditionsRes = await openLibApiClient<ListResponse<Book>>(
     `/works/${workId}/editions.json`,
     { params: { offset, limit }, cf: WEEKLY_CACHE_OPTIONS },
   )
@@ -33,7 +33,7 @@ export async function getBookshelveDataByWorkId({
 }: {
   workId: string
 }) {
-  const bookshelveData = await apiClient<Bookshelve>(
+  const bookshelveData = await openLibApiClient<Bookshelve>(
     `/books/${workId}/bookshelves.json`,
     { cf: WEEKLY_CACHE_OPTIONS },
   )
@@ -42,7 +42,7 @@ export async function getBookshelveDataByWorkId({
 }
 
 export async function getRatingsByWorkId({ workId }: { workId: string }) {
-  const ratings = await apiClient<BookRatings>(
+  const ratings = await openLibApiClient<BookRatings>(
     `/books/${workId}/ratings.json`,
     { cf: WEEKLY_CACHE_OPTIONS },
   )
@@ -51,7 +51,7 @@ export async function getRatingsByWorkId({ workId }: { workId: string }) {
 }
 
 export async function getEditionById({ editionId }: { editionId: string }) {
-  const edition = await apiClient<Book>(`/books/${editionId}.json`, {
+  const edition = await openLibApiClient<Book>(`/books/${editionId}.json`, {
     cf: WEEKLY_CACHE_OPTIONS,
   })
 

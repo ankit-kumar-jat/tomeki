@@ -1,4 +1,6 @@
-export const API_URL = 'https://openlibrary.org/'
+export const OPEN_LIBRARY_API_URL = 'https://openlibrary.org/'
+export const GOOGLE_BLOGGER_API_URL =
+  'https://blogger.googleapis.com/v3/blogs/3354417192831064260/'
 
 // For caching using cludflare use cf option
 // https://developers.cloudflare.com/workers/runtime-apis/request/#the-cf-property-requestinitcfproperties
@@ -31,7 +33,7 @@ export const WEEKLY_CACHE_OPTIONS: RequestInitCfProperties = {
 }
 
 export async function apiClient<T>(
-  endpoint: string,
+  { endpoint, url }: { endpoint: string; url: string },
   {
     body,
     params,
@@ -41,12 +43,12 @@ export async function apiClient<T>(
   if (endpoint.startsWith('/')) {
     endpoint = endpoint.substring(1)
   }
-  const url = new URL(endpoint, API_URL)
+  const fullUrl = new URL(endpoint, url)
   const headers = {
     'Content-Type': 'application/json',
     // 'Accept-Encoding': 'gzip, br',
     // TODO: load email from env
-    'User-Agent': 'Tomeki/1.0 (ankit@yopmail.com)',
+    'User-Agent': 'Tomeki/1.0 (ankit@yopmail.com , gzip)',
   }
 
   const config: RequestInit = {
@@ -62,7 +64,7 @@ export async function apiClient<T>(
   if (params) {
     for (const [key, value] of Object.entries(params)) {
       if (value !== null && value !== undefined) {
-        url.searchParams.set(key, value)
+        fullUrl.searchParams.set(key, value)
       }
     }
   }
@@ -71,8 +73,8 @@ export async function apiClient<T>(
     config.body = JSON.stringify(body)
   }
 
-  console.log('🚀 ~ Fetch url:', url.toString())
-  const res = await fetch(url.toString(), config)
+  console.log('🚀 ~ Fetch url:', fullUrl.toString())
+  const res = await fetch(fullUrl.toString(), config)
 
   if (res.ok) {
     const isJson = res.headers.get('content-type')?.includes('application/json')
@@ -87,5 +89,20 @@ export async function apiClient<T>(
   }
   if (res.status === 404) return
 
+  console.warn(await res.text())
   throw new Error(`Fetch for api failed with code: ${res.status}`)
+}
+
+export async function openLibApiClient<T>(
+  endpoint: string,
+  requestInit: RequestInit & { body?: object; params?: object } = {},
+) {
+  return apiClient<T>({ endpoint, url: OPEN_LIBRARY_API_URL }, requestInit)
+}
+
+export async function bloggerApiClient<T>(
+  endpoint: string,
+  requestInit: RequestInit & { body?: object; params?: object } = {},
+) {
+  return apiClient<T>({ endpoint, url: GOOGLE_BLOGGER_API_URL }, requestInit)
 }

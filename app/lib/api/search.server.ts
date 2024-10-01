@@ -7,7 +7,7 @@ import {
   SearchWorkItem,
   SearchWorkKeys,
 } from '../api-types'
-import { apiClient, DAILY_CACHE_OPTIONS } from './api-client.server'
+import { openLibApiClient, DAILY_CACHE_OPTIONS } from './api-client.server'
 
 interface BaseSearchOptions {
   q: string
@@ -56,7 +56,7 @@ export async function searchWorks<T extends SearchWorkKeys>({
   mode,
   hasFullText,
 }: SearchWorksOptions<T>) {
-  const searchWorksRes = await apiClient<
+  const searchWorksRes = await openLibApiClient<
     SearchResponse<SearchWorkItem<typeof fields>>
   >('/search.json', {
     params: {
@@ -83,7 +83,7 @@ export async function searchAuthors<T extends SearchAuthorKeys>({
   offset = 0,
   limit = 20,
 }: SearchAuthorsOptions<T>) {
-  const searchRes = await apiClient<
+  const searchRes = await openLibApiClient<
     SearchResponse<SearchAuthorItem<typeof fields>>
   >('/search/authors.json', {
     params: { q, fields: fields.join(','), sort, offset, limit },
@@ -98,7 +98,7 @@ export async function searchSubjects({
   offset = 0,
   limit = 20,
 }: BaseSearchOptions) {
-  const searchRes = await apiClient<SearchResponse<SearchSubject>>(
+  const searchRes = await openLibApiClient<SearchResponse<SearchSubject>>(
     '/search/subjects.json',
     { params: { q, offset, limit }, cf: DAILY_CACHE_OPTIONS },
   )
@@ -111,7 +111,7 @@ export async function searchLists({
   offset = 0,
   limit = 20,
 }: BaseSearchOptions) {
-  const searchRes = await apiClient<
+  const searchRes = await openLibApiClient<
     Pick<SearchResponse<SearchList>, 'docs' | 'start'>
   >('/search/lists.json', {
     params: { q, offset, limit },

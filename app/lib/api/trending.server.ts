@@ -1,5 +1,5 @@
 import { TrendingWorksResponse } from '../api-types'
-import { apiClient, DAILY_CACHE_OPTIONS } from './api-client.server'
+import { openLibApiClient, DAILY_CACHE_OPTIONS } from './api-client.server'
 
 interface GetTrendingWorksOptions {
   type: 'now' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'forever'
@@ -10,7 +10,7 @@ export async function getTrendingWorks({
   type,
   limit = 20,
 }: GetTrendingWorksOptions) {
-  const trendingApiRes = await apiClient<TrendingWorksResponse>(
+  const trendingApiRes = await openLibApiClient<TrendingWorksResponse>(
     `/trending/${type}.json`,
     {
       params: { limit },
