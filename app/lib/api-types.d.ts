@@ -1,6 +1,8 @@
 import { ListResponse } from './api-types'
 export interface Author {
-  alternate_names: string[]
+  alternate_names?: string[]
+  photos?: number[]
+  bio?: Description
   death_date: string
   name: string
   source_records: string[]
