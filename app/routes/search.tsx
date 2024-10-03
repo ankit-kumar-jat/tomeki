@@ -5,7 +5,7 @@ const navLinks = [
   { to: '', title: 'Books', end: true },
   { to: 'authors', title: 'Authors' },
   { to: 'subjects', title: 'Subjects' },
-  { to: 'lists', title: 'Lists' },
+  // { to: 'lists', title: 'Lists' },
 ]
 
 export default function Index() {

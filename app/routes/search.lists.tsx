@@ -4,6 +4,7 @@ import type {
   MetaFunction,
 } from '@remix-run/node'
 import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
+import { SEOHandle } from '@nasa-gcn/remix-seo'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import SearchForm from '~/components/search-form'
@@ -47,6 +48,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return loaderHeaders
 }
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null, // this will exclude this route from sitemap
+}
+
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   const metaTags = [
     { title: getMetaTitle('Explore Books by Subject - Find Books by Topic') },
