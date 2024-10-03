@@ -24,7 +24,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const offset = Number(url.searchParams.get('offset')) || 0
   const sort = url.searchParams.get('sort') ?? ''
 
-  const headers = { 'Cache-Control': 'public, max-age=86400, s-max-age=86400' }
+  const headers: ResponseInit['headers'] = {
+    'Cache-Control': 'public, max-age=86400, s-max-age=86400',
+  }
 
   const subjectData = await getWorksBySubject({
     subject: subjectSlug,
@@ -32,8 +34,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     offset,
     // sort,
   })
+  const isPopular = Boolean(
+    popularSubjects.find(({ id }) => id === subjectSlug),
+  )
+
+  // X-Robots-Tag header will prevent search result pages from indexing
+  headers['X-Robots-Tag'] = 'noindex'
+
   return json(
     {
+      isPopular,
       slug: subjectSlug,
       title: subjectData.title,
       totalWorks: subjectData.totalWorks,
@@ -44,7 +54,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+  return loaderHeaders
 }
 
 export const handle: SEOHandle = {
@@ -61,10 +71,16 @@ export const handle: SEOHandle = {
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   const title = `Top Books on ${data?.title} | Explore ${data?.title} Themes & Stories`
   const desc = `Discover captivating books about ${data?.title} on Tomeki. Explore timeless stories and the latest releases that dive deep into the theme of ${data?.title}.`
-  return [
+
+  const metaTags = [
     { title: getMetaTitle(title) },
     { name: 'description', content: desc },
   ]
+
+  // robots meta tag will prevent search result pages from indexing
+  if (!data?.isPopular) metaTags.push({ name: 'robots', content: 'noinex' })
+
+  return metaTags
 }
 
 export default function SubjectWorks() {
