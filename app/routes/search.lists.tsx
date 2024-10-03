@@ -1,21 +1,29 @@
-import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import type {
+  LoaderFunctionArgs,
+  HeadersFunction,
+  MetaFunction,
+} from '@remix-run/node'
 import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import SearchForm from '~/components/search-form'
 import { searchLists } from '~/lib/api/search.server'
+import { getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const q = url.searchParams.get('q')
 
-  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+  const headers: ResponseInit['headers'] = {
+    'Cache-Control': 'public, max-age=3600, s-max-age=3600',
+  }
 
   if (!q) {
     return json(
       {
         numFound: 0,
         lists: [],
+        q: '',
       },
       { headers },
     )
@@ -23,17 +31,40 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const searchRes = await searchLists({ q, limit: 10 })
 
+  // X-Robots-Tag header will prevent search result pages from indexing
+  headers['X-Robots-Tag'] = 'noindex'
+
   return json(
     {
       numFound: searchRes?.docs?.length ? 10 : 0,
       lists: searchRes?.docs?.length ? searchRes.docs : [],
+      q,
     },
     { headers },
   )
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+  return loaderHeaders
+}
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const metaTags = [
+    { title: getMetaTitle('Explore Books by Subject - Find Books by Topic') },
+    {
+      name: 'description',
+      content:
+        'earch and discover books categorized by various subjects on Tomeki. Dive into topics you love and find your next great read.',
+    },
+    {
+      tagName: 'link',
+      rel: 'canonical',
+      href: getFullURL(`/search/subjects`),
+    },
+  ]
+  // robots meta tag will prevent search result pages from indexing
+  if (data?.q) metaTags.push({ name: 'robots', content: 'noinex' })
+
+  return metaTags
 }
 
 export default function Index() {

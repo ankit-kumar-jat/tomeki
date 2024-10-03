@@ -1,18 +1,24 @@
-import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import type {
+  LoaderFunctionArgs,
+  HeadersFunction,
+  MetaFunction,
+} from '@remix-run/node'
 import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'
 import { Pagination } from '~/components/pagination'
 import SearchForm from '~/components/search-form'
 import { searchAuthors } from '~/lib/api/search.server'
-import { getAuthorImage } from '~/lib/utils'
+import { getAuthorImage, getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const q = url.searchParams.get('q')
   const offset = Number(url.searchParams.get('offset')) || 0
 
-  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+  const headers: ResponseInit['headers'] = {
+    'Cache-Control': 'public, max-age=3600, s-max-age=3600',
+  }
 
   if (!q) {
     return json(
@@ -20,6 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         numFound: 0,
         foundExact: false,
         authors: [],
+        q: '',
       },
       { headers },
     )
@@ -31,18 +38,42 @@ export async function loader({ request }: LoaderFunctionArgs) {
     fields: ['name', 'key', 'top_subjects', 'work_count', 'top_work'],
   })
 
+  // X-Robots-Tag header will prevent search result pages from indexing
+  headers['X-Robots-Tag'] = 'noindex'
+
   return json(
     {
       numFound: searchRes?.numFound ?? searchRes?.num_found ?? 0,
       foundExact: searchRes?.numFoundExact ?? false,
       authors: searchRes?.docs?.length ? searchRes.docs : [],
+      q,
     },
     { headers },
   )
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
+  return loaderHeaders
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const metaTags = [
+    { title: getMetaTitle('Search Authors - Discover Your Favorite Authors') },
+    {
+      name: 'description',
+      content:
+        'Find books by your favorite authors on Tomeki. Explore a wide range of authors across different genres and discover new favorites.',
+    },
+    {
+      tagName: 'link',
+      rel: 'canonical',
+      href: getFullURL(`/search/authors`),
+    },
+  ]
+  // robots meta tag will prevent search result pages from indexing
+  if (data?.q) metaTags.push({ name: 'robots', content: 'noinex' })
+
+  return metaTags
 }
 
 export default function Index() {
