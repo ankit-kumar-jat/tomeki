@@ -40,9 +40,11 @@ export default function About() {
           history, learning from self-help, or studying science, you'll find the
           perfect book for every mood and moment.
         </p>
-        pWe are passionate about books and aim to build a community that
-        celebrates the joy of reading. Join us on this literary journey, and
-        discover your next favorite book on {SITE_NAME}.
+        <p>
+          We are passionate about books and aim to build a community that
+          celebrates the joy of reading. Join us on this literary journey, and
+          discover your next favorite book on {SITE_NAME}.
+        </p>
       </div>
     </div>
   )
