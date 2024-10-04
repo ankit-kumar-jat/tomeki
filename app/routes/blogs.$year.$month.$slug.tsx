@@ -75,8 +75,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 }
 
 function readTime(str: string) {
-  const words = str.match(/(\w+)/g)?.length ?? 250
-  const readMins = Math.trunc(words / 250)
+  const words = str.match(/(\w+)/g)?.length ?? 300
+  const readMins = Math.trunc(words / 300)
   return readMins
 }
 
