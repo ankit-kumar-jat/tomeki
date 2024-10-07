@@ -2,6 +2,7 @@ import { json, type ActionFunctionArgs } from '@remix-run/node'
 import { redirect, useFetcher, useFetchers } from '@remix-run/react'
 import { LaptopIcon, MoonIcon, SunIcon } from 'lucide-react'
 import { ServerOnly } from 'remix-utils/server-only'
+import { Button } from '~/components/ui/button'
 import { useHints } from '~/lib/client-hints'
 import { useRequestInfo } from '~/lib/request-info'
 import { type Theme, setTheme } from '~/lib/theme.server'
@@ -81,12 +82,9 @@ export function ThemeSwitch({
       </ServerOnly>
       <input type="hidden" name="theme" value={nextMode} />
       <div className="flex gap-2">
-        <button
-          type="submit"
-          className="flex h-8 w-8 cursor-pointer items-center justify-center transition-all"
-        >
+        <Button size="icon" variant="ghost" type="submit">
           {modeLabel[mode]}
-        </button>
+        </Button>
       </div>
     </fetcher.Form>
   )

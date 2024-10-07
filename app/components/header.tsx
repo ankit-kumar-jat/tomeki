@@ -14,13 +14,13 @@ const navLinks = [
 function Header({ themePreference }: { themePreference?: Theme | null }) {
   return (
     <header className="container border-b border-border py-2 sm:py-4">
-      <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+      <div className="flex flex-wrap items-center justify-between gap-4 sm:flex-row">
         <Link to="/" className="flex items-center gap-1 md:min-w-32">
           <Logo height={36} width={36} />
           <span className="text-xl font-medium">Tomeki</span>
         </Link>
 
-        <nav className="font flex flex-wrap gap-3">
+        <nav className="order-3 flex w-full flex-wrap gap-3 sm:order-none sm:w-auto">
           {navLinks.map(({ title, ...rest }) => (
             <NavLink
               key={title}
