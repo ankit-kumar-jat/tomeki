@@ -19,7 +19,7 @@ export default function About() {
           About
         </h1>
       </div>
-      <div className="prose mx-auto">
+      <div className="prose mx-auto dark:prose-invert">
         <p>
           Welcome to {SITE_NAME}, your go-to destination for discovering
           millions of books from around the world. Whether you're a casual

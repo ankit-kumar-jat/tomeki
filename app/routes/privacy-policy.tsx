@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           Privacy Policy
         </h1>
       </div>
-      <div className="prose mx-auto text-justify">
+      <div className="prose mx-auto text-justify dark:prose-invert">
         <p>
           At {SITE_NAME}, accessible from{' '}
           <a href={SITE_URL} target="_blank">

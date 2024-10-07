@@ -26,7 +26,7 @@ function SearchForm({
     >
       <input
         name={searchInputName}
-        className="peer h-12 w-full rounded-s-full pl-6"
+        className="peer h-12 w-full rounded-s-full bg-transparent pl-6 placeholder:text-foreground/50 placeholder:drop-shadow-sm"
         placeholder={placeholder}
         defaultValue={searchValue}
         autoComplete="off"

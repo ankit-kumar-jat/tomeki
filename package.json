@@ -13,6 +13,7 @@
     "typegen": "wrangler types"
   },
   "dependencies": {
+    "@epic-web/client-hints": "^1.3.5",
     "@nasa-gcn/remix-seo": "^2.0.1",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",

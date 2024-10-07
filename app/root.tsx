@@ -1,10 +1,13 @@
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from '@remix-run/react'
+import type { ShouldRevalidateFunction } from '@remix-run/react'
 
 import '~/tailwind.css'
 import Header from '~/components/header'
@@ -13,8 +16,34 @@ import { ProgressBar } from '~/components/progress-bar'
 import GoogleAnalytics from '~/components/google-analytics'
 import GoogleAdsScript from '~/components/ads/google/google-ads-script'
 import InfolinksAdsScript from './components/ads/infolinks/infolinks-ads-script'
+import { ClientHintCheck, getHints } from '~/lib/client-hints'
+import { getTheme, type Theme } from '~/lib/theme.server'
+import { cn } from '~/lib/utils'
+import { useTheme } from '~/routes/resources.theme-switch'
+
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  return {
+    requestInfo: {
+      hints: getHints(request),
+      path: new URL(request.url).pathname,
+      userPrefs: {
+        theme: getTheme(request),
+      },
+    },
+  }
+}
+
+export type RootLoaderType = typeof loader
+
+export const shouldRevalidate: ShouldRevalidateFunction = ({ formAction }) => {
+  if (formAction === '/resources/theme-switch') {
+    return true // only revalidate switch theme action is called
+  }
+  return false
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const theme = useTheme()
   return (
     <html lang="en">
       <head>
@@ -41,11 +70,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
           href="/favicon-16x16.png"
         />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="theme-color"
+          content={theme === 'dark' ? '#000000' : '#ffffff'}
+        />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body
+        className={cn(
+          'bg-background text-foreground',
+          theme === 'dark' ? 'dark' : 'light',
+        )}
+      >
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -55,12 +92,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const data = useLoaderData<typeof loader>()
   return (
     <>
-      <Header />
+      <Header themePreference={data.requestInfo.userPrefs.theme} />
       <Outlet />
       <Footer />
       <ProgressBar />
+      <ClientHintCheck />
       <GoogleAnalytics />
       <GoogleAdsScript />
       <InfolinksAdsScript />
