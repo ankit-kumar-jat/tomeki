@@ -3,7 +3,7 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   HeadersFunction,
-} from '@remix-run/node'
+} from '@remix-run/cloudflare'
 import { json, Link, useLoaderData } from '@remix-run/react'
 import Hero from '~/components/hero'
 import Section from '~/components/section'

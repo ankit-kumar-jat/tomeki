@@ -2,7 +2,7 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   HeadersFunction,
-} from '@remix-run/node'
+} from '@remix-run/cloudflare'
 import { serverOnly$ } from 'vite-env-only/macros'
 import { json, Link, useLoaderData } from '@remix-run/react'
 import { useMemo } from 'react'

@@ -1,4 +1,4 @@
-import { json, type ActionFunctionArgs } from '@remix-run/node'
+import { json, type ActionFunctionArgs } from '@remix-run/cloudflare'
 import { redirect, useFetcher, useFetchers } from '@remix-run/react'
 import { LaptopIcon, MoonIcon, SunIcon } from 'lucide-react'
 import { ServerOnly } from 'remix-utils/server-only'

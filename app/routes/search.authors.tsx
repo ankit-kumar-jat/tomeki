@@ -2,7 +2,7 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
   MetaFunction,
-} from '@remix-run/node'
+} from '@remix-run/cloudflare'
 import { Link, useLoaderData, useSearchParams, json } from '@remix-run/react'
 import { AdsterraHorizontalAdsBanner } from '~/components/ads/adsterra/horizontal-ads-banner'
 import { AdsterraNativeAdsBanner } from '~/components/ads/adsterra/native-ads-banner'

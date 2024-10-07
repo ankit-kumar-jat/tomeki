@@ -1,4 +1,4 @@
-import type { MetaFunction, HeadersFunction } from '@remix-run/node'
+import type { MetaFunction, HeadersFunction } from '@remix-run/cloudflare'
 import { SITE_NAME } from '~/config/site'
 import { getMetaTitle } from '~/lib/utils'
 

@@ -2,7 +2,7 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
   MetaFunction,
-} from '@remix-run/node'
+} from '@remix-run/cloudflare'
 import type { ShouldRevalidateFunction } from '@remix-run/react'
 import { json, NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import { searchAuthors } from '~/lib/api/search.server'

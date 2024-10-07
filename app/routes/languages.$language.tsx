@@ -2,7 +2,7 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   HeadersFunction,
-} from '@remix-run/node'
+} from '@remix-run/cloudflare'
 import { json, useLoaderData, useSearchParams } from '@remix-run/react'
 import { SEOHandle } from '@nasa-gcn/remix-seo'
 import { serverOnly$ } from 'vite-env-only/macros'

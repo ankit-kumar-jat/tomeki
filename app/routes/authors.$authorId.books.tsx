@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs, HeadersFunction } from '@remix-run/cloudflare'
 import { json, Link, useLoaderData, useSearchParams } from '@remix-run/react'
 import { Pagination } from '~/components/pagination'
 import { getWorksByAuthorId } from '~/lib/api/authors.server'

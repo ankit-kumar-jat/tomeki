@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { generateSitemap } from '@nasa-gcn/remix-seo'
 // @ts-ignore
 import { routes } from 'virtual:remix/server-build'
