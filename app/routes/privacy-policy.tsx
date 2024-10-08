@@ -44,6 +44,11 @@ export default function PrivacyPolicy() {
               through Google AdSense, which may use cookies to serve relevant
               ads based on your interests.
             </li>
+            <li>
+              <strong>ConvertKit: </strong>We collect your email address via
+              ConvertKit if you subscribe to our newsletter. This email is used
+              to send you updates and promotional content.
+            </li>
           </ul>
         </p>
         <p>
@@ -53,15 +58,17 @@ export default function PrivacyPolicy() {
         </p>
         <p>
           <strong>3. Data Sharing </strong>We do not share personal information
-          with third parties, except as required by Google Analytics and AdSense
-          for their services.
+          with third parties, except as required by Google Analytics, AdSense,
+          and ConvertKit for their services.
         </p>
         <p>
           <strong>4. Your Choices </strong>You may opt-out of personalized ads
           by visiting the Google{' '}
           <a href="https://adssettings.google.com/" target="_blank">
             Ad Settings page.
-          </a>
+          </a>{' '}
+          You can also unsubscribe from our newsletter at any time by using the
+          link provided in our emails.
         </p>
         <p>
           <strong>5. Changes to This Policy </strong>We may update this policy

@@ -8,6 +8,7 @@ import { Button } from '~/components/ui/button'
 import { SITE_NAME } from '~/config/site'
 import { getBlogLabels, getBlogPosts } from '~/lib/api/blogs.server'
 import { cn } from '~/lib/utils'
+import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const apiKey = context.cloudflare.env.BLOGGER_API_KEY
@@ -107,23 +108,31 @@ export default function Blogs() {
       </div>
       <div className="my-10">
         {posts.length ? (
-          <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            {posts.map(post => (
-              <PostCard
-                key={post.id}
-                coverImage={post.coverImage}
-                title={post.title}
-                publishedAt={post.published}
-                postPath={post.path}
-                labels={post.labels}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+              {posts.map(post => (
+                <PostCard
+                  key={post.id}
+                  coverImage={post.coverImage}
+                  title={post.title}
+                  publishedAt={post.published}
+                  postPath={post.path}
+                  labels={post.labels}
+                />
+              ))}
+            </div>
+            <div className="my-4 text-center">
+              {/* <Button variant="outline">Load More</Button> */}
+            </div>
+          </>
         ) : (
           <p className="min-h-60 text-lg font-medium text-muted-foreground md:text-xl">
             Couldn't find anything to match your criteria. Sorry.
           </p>
         )}
+      </div>
+      <div>
+        <NewsletterSubscriptionForm />
       </div>
     </div>
   )

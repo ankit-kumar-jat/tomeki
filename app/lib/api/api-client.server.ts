@@ -34,11 +34,7 @@ export const WEEKLY_CACHE_OPTIONS: RequestInitCfProperties = {
 
 export async function apiClient<T>(
   { endpoint, url }: { endpoint: string; url: string },
-  {
-    body,
-    params,
-    ...customConfig
-  }: RequestInit & { body?: object; params?: object } = {},
+  { body, params, ...customConfig }: RequestInit & { params?: object } = {},
 ) {
   if (endpoint.startsWith('/')) {
     endpoint = endpoint.substring(1)
@@ -46,8 +42,7 @@ export async function apiClient<T>(
   const fullUrl = new URL(endpoint, url)
   const headers = {
     'Content-Type': 'application/json',
-    // 'Accept-Encoding': 'gzip, br',
-    // TODO: load email from env
+    'Accept-Encoding': 'gzip, br',
     'User-Agent': 'Tomeki/1.0 (ankit@yopmail.com , gzip)',
   }
 
@@ -59,6 +54,7 @@ export async function apiClient<T>(
       ...customConfig.headers,
     },
     cache: undefined,
+    body,
   }
 
   if (params) {
@@ -67,10 +63,6 @@ export async function apiClient<T>(
         fullUrl.searchParams.set(key, value)
       }
     }
-  }
-
-  if (body) {
-    config.body = JSON.stringify(body)
   }
 
   console.log('🚀 ~ Fetch url:', fullUrl.toString())

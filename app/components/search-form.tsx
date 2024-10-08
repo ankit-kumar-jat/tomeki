@@ -26,20 +26,20 @@ function SearchForm({
     >
       <input
         name={searchInputName}
-        className="peer h-12 w-full rounded-s-full bg-transparent pl-6 placeholder:text-foreground/50 placeholder:drop-shadow-sm"
+        className="peer h-12 w-full rounded-s-full bg-transparent pl-6 outline-none ring-primary placeholder:text-foreground/50 placeholder:drop-shadow-sm focus-within:ring-2"
         placeholder={placeholder}
         defaultValue={searchValue}
         autoComplete="off"
       />
       <button
-        className="absolute right-14 top-0 px-2 py-3 peer-placeholder-shown:invisible"
+        className="absolute right-14 top-0 px-2 py-3 outline-none ring-primary focus-within:ring-2 peer-placeholder-shown:invisible"
         onClick={clearSearchInput}
         type="reset"
       >
         <span className="sr-only">Clear</span>
         <XIcon />
       </button>
-      <button className="rounded-e-full border-l p-3 pr-4">
+      <button className="rounded-e-full border-l p-3 pr-4 outline-none ring-primary focus-within:ring-2">
         <span className="sr-only">Search</span>
         <SearchIcon />
       </button>

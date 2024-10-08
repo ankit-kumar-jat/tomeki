@@ -46,17 +46,26 @@ export default function PrivacyPolicy() {
           third-party sites.
         </p>
         <p>
-          <strong>5. Disclaimer of Warranties </strong>
+          <strong>5. Email Collection and Newsletter </strong>
+          By subscribing to our newsletter, you consent to receive periodic
+          emails from Tomeki. These emails may include news, updates, and
+          promotions. You may unsubscribe at any time by following the
+          instructions in each email. We use ConvertKit to manage our email
+          list, and your email information will be handled in accordance with
+          their privacy policy.
+        </p>
+        <p>
+          <strong>6. Disclaimer of Warranties </strong>
           {SITE_NAME} is provided "as is." We do not guarantee the accuracy or
           completeness of any information or content on the site.
         </p>
         <p>
-          <strong>6. Limitation of Liability </strong>
+          <strong>7. Limitation of Liability </strong>
           We are not liable for any direct, indirect, or incidental damages
           arising from your use of Tomeki Books.
         </p>
         <p>
-          <strong>7. Changes to Terms </strong>
+          <strong>8. Changes to Terms </strong>
           We reserve the right to update these terms at any time. Continued use
           of the site signifies your acceptance of any changes.
         </p>

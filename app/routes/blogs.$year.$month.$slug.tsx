@@ -8,12 +8,14 @@ import { json, Link, useLoaderData } from '@remix-run/react'
 import { useMemo } from 'react'
 import { format } from 'date-fns'
 import { SEOHandle } from '@nasa-gcn/remix-seo'
+import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 import { SITE_NAME } from '~/config/site'
 import {
   getBlogPost,
   getBlogPosts,
   getBlogSitemapEntries,
 } from '~/lib/api/blogs.server'
+import { Button } from '~/components/ui/button'
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const apiKey = context.cloudflare.env.BLOGGER_API_KEY
@@ -114,6 +116,9 @@ export default function BlogPostDetails() {
             ))}
           </p>
         </div>
+      </div>
+      <div>
+        <NewsletterSubscriptionForm />
       </div>
     </div>
   )
