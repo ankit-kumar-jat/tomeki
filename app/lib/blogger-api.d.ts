@@ -3,7 +3,7 @@ export interface BlogPosts {
   nextPageToken: string
   items: Pick<
     Post,
-    'id' | 'images' | 'published' | 'title' | 'url' | 'labels'
+    'id' | 'images' | 'published' | 'title' | 'url' | 'labels' | 'updated'
   >[]
 }
 

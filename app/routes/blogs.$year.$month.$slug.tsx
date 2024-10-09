@@ -40,6 +40,7 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
     content: post.content,
     labels: post.labels,
     description: post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ?? '',
+    updated: post.updated,
   }
 
   return json({ post: formattedPost }, { headers })
@@ -53,7 +54,7 @@ export const handle: SEOHandle = {
   getSitemapEntries: serverOnly$(async () => {
     const entries = await getBlogSitemapEntries()
     return entries.map(entry => {
-      return { route: entry.route, priority: 0.7 }
+      return { route: entry.route, priority: 0.7, lastmod: entry.lastmod }
     })
   }),
 }

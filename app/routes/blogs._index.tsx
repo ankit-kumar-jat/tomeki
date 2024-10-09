@@ -3,7 +3,14 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
 } from '@remix-run/cloudflare'
-import { json, Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import {
+  json,
+  Link,
+  useFetcher,
+  useLoaderData,
+  useSearchParams,
+} from '@remix-run/react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '~/components/ui/button'
 import { SITE_NAME } from '~/config/site'
 import { getBlogLabels, getBlogPosts } from '~/lib/api/blogs.server'
@@ -16,6 +23,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 
   const url = new URL(request.url)
   const labelsSelected = url.searchParams.getAll('labels')
+  const nextPageToken = url.searchParams.get('next')
 
   const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
 
@@ -23,6 +31,8 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     getBlogPosts({
       key: apiKey,
       labels: labelsSelected.length ? labelsSelected.toString() : undefined,
+      maxResults: 18,
+      pageToken: nextPageToken ?? undefined,
     }),
     getBlogLabels(),
   ])
@@ -56,8 +66,14 @@ export const meta: MetaFunction = () => {
 export default function Blogs() {
   const { nextPageToken, posts, labels } = useLoaderData<typeof loader>()
   const [searchParams, setSearchParams] = useSearchParams()
-
   const labelsSelected = searchParams.getAll('labels')
+
+  const [morePosts, setMorePosts] = useState<typeof posts>([])
+  const fetcher = useFetcher<typeof loader>()
+
+  const actualNextPageToken = fetcher.data
+    ? fetcher.data.nextPageToken
+    : nextPageToken
 
   const handleLabelSelect = (value: string) => {
     setSearchParams(
@@ -67,11 +83,30 @@ export default function Blogs() {
         } else {
           prev.append('labels', value)
         }
+        setMorePosts([])
         return prev
       },
       { preventScrollReset: true },
     )
   }
+
+  const handleLoadMore = (next: string) => {
+    const params = new URLSearchParams(searchParams)
+    params.set('next', next)
+    fetcher.load(`/blogs?${params.toString()}`)
+  }
+
+  useEffect(() => {
+    if (fetcher.data?.posts?.length) {
+      const newPosts = fetcher.data.posts
+      setMorePosts(prev => [...prev, ...newPosts])
+    }
+  }, [fetcher.data])
+
+  const combinedPosts = useMemo(
+    () => [...posts, ...morePosts],
+    [posts, morePosts],
+  )
 
   return (
     <div className="container my-10">
@@ -110,7 +145,7 @@ export default function Blogs() {
         {posts.length ? (
           <>
             <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-              {posts.map(post => (
+              {combinedPosts.map(post => (
                 <PostCard
                   key={post.id}
                   coverImage={post.coverImage}
@@ -121,8 +156,17 @@ export default function Blogs() {
                 />
               ))}
             </div>
-            <div className="my-4 text-center">
-              {/* <Button variant="outline">Load More</Button> */}
+            <div className="my-6 text-center">
+              {actualNextPageToken ? (
+                <Button
+                  // variant="outline"
+                  onClick={() => handleLoadMore(actualNextPageToken)}
+                  disabled={fetcher.state !== 'idle'}
+                  className="min-w-32"
+                >
+                  {fetcher.state !== 'idle' ? 'Loading...' : 'Load More'}
+                </Button>
+              ) : null}
             </div>
           </>
         ) : (

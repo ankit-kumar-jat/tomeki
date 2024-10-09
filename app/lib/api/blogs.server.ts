@@ -13,12 +13,14 @@ interface GetBlogPostsOptions {
   key: string
   labels?: string
   maxResults?: number
+  pageToken?: string
 }
 
 export async function getBlogPosts({
   key,
   maxResults,
   labels,
+  pageToken,
 }: GetBlogPostsOptions) {
   const blogPostsRes = await bloggerApiClient<BlogPosts>('/posts', {
     params: {
@@ -26,8 +28,10 @@ export async function getBlogPosts({
       fetchImages: true,
       fetchBodies: false,
       maxResults,
+      pageToken,
       labels,
-      fields: 'kind,nextPageToken,items(id,url,title,images,published,labels)',
+      fields:
+        'kind,nextPageToken,items(id,url,title,images,published,labels,updated)',
     },
     cf: HOURLY_CACHE_OPTIONS,
   })
@@ -40,6 +44,7 @@ export async function getBlogPosts({
       path: new URL(post.url).pathname,
       published: format(new Date(post.published), 'MMMM dd, yyyy'),
       labels: post.labels,
+      updated: post.updated, // need this for sitemap
     })) ?? []
 
   return {
@@ -89,12 +94,16 @@ export async function getBlogLabels() {
 export async function getBlogSitemapEntries() {
   const blogPostsRes = await apiClient<ReturnType<typeof getBlogPosts>>(
     { endpoint: '/blogs', url: SITE_URL },
-    { params: { _data: 'routes/blogs._index' }, cf: HOURLY_CACHE_OPTIONS },
+    {
+      params: { _data: 'routes/blogs._index' },
+      cf: HOURLY_CACHE_OPTIONS,
+    },
   )
 
   if (!blogPostsRes?.posts) return []
 
   return blogPostsRes.posts.map(post => ({
     route: `/blogs${post.path}`,
+    lastmod: post.updated,
   }))
 }

@@ -27,7 +27,7 @@ function Header({ themePreference }: { themePreference?: Theme | null }) {
               className={({ isActive }) =>
                 cn(
                   'opacity-85 hover:opacity-100 focus-visible:opacity-100',
-                  isActive && 'opacity-100',
+                  isActive && 'font-medium opacity-100',
                 )
               }
               {...rest}
