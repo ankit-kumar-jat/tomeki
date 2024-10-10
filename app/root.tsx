@@ -76,6 +76,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
+        {/* this should be in head to prevent first time theme blinking */}
+        <ClientHintCheck />
       </head>
       <body
         className={cn(
@@ -99,7 +101,6 @@ export default function App() {
       <Outlet />
       <Footer />
       <ProgressBar />
-      <ClientHintCheck />
       <GoogleAnalytics />
       <GoogleAdsScript />
       <InfolinksAdsScript />
