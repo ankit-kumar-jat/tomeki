@@ -2,6 +2,7 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   HeadersFunction,
+  MetaDescriptor,
 } from '@remix-run/cloudflare'
 import {
   json,
@@ -51,8 +52,8 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return { 'Cache-Control': loaderHeaders.get('Cache-Control') ?? '' }
 }
 
-export const meta: MetaFunction = () => {
-  return [
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const metaTags: MetaDescriptor[] = [
     {
       title: `Latest Updates, Reviews and Book Discoveries | ${SITE_NAME} Blog`,
     },
@@ -61,6 +62,21 @@ export const meta: MetaFunction = () => {
       content: `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`,
     },
   ]
+
+  if (data?.posts?.length) {
+    data?.posts.slice(0, 3).forEach(post => {
+      if (post.coverImage) {
+        metaTags.push({
+          tagName: 'link',
+          rel: 'preload',
+          href: post.coverImage,
+          as: 'image',
+        })
+      }
+    })
+  }
+
+  return metaTags
 }
 
 export default function Blogs() {
