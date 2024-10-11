@@ -214,16 +214,16 @@ export function PostCard({
   labels,
 }: PostCardProps) {
   return (
-    <div className="rounded-3xl border border-foreground/30 p-6">
+    <div className="flex flex-col gap-4 rounded-3xl border border-foreground/30 p-6">
       <img
         src={coverImage}
         alt=""
         width="320"
         height="180"
-        className="aspect-video h-auto w-full rounded-3xl bg-muted object-cover"
+        className="aspect-video h-auto w-full flex-shrink-0 rounded-3xl bg-muted object-cover"
         loading="lazy"
       />
-      <div className="mt-4 space-y-4">
+      <div className="space-y-4">
         <Link
           to={`/blogs${postPath}`}
           className="text-center text-xl font-medium outline-none focus-within:underline hover:underline focus:underline active:underline lg:text-3xl"
@@ -240,10 +240,10 @@ export function PostCard({
             </span>
           ))}
         </div>
-        <p className="border-t pt-4 text-right text-xs text-muted-foreground">
-          {publishedAt}
-        </p>
       </div>
+      <p className="mt-auto border-t pt-4 text-right text-xs text-muted-foreground">
+        {publishedAt}
+      </p>
     </div>
   )
 }
