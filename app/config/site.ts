@@ -1,6 +1,8 @@
 export const SITE_URL = 'https://www.tomeki.site'
 export const SITE_NAME = 'Tomeki'
 
+export const GOOGLE_ANALYTICS_ID = 'G-7DWEG1YQ09'
+
 export const BLOGGER_BLOG_ID = '3354417192831064260'
 export const BLOGGER_BLOG_NAME = 'tomeki-books'
 

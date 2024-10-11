@@ -1,3 +1,5 @@
+import { GOOGLE_ANALYTICS_ID } from '~/config/site'
+
 function GoogleAnalytics() {
   const isProd = process.env.NODE_ENV !== 'development'
 
@@ -6,7 +8,7 @@ function GoogleAnalytics() {
     <>
       <script
         async
-        src={`https://www.googletagmanager.com/gtag/js?id=G-7DWEG1YQ09`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
       />
       <script
         id="gtag-init"
@@ -14,7 +16,7 @@ function GoogleAnalytics() {
           __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-7DWEG1YQ09');`,
+            gtag('config', '${GOOGLE_ANALYTICS_ID}');`,
         }}
       />
     </>
