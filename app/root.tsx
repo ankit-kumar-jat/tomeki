@@ -21,7 +21,6 @@ import GoogleAdsScript from '~/components/ads/google/google-ads-script'
 import { ClientHintCheck, getHints } from '~/lib/client-hints'
 import { getTheme, type Theme } from '~/lib/theme.server'
 import { cn, getErrorMessage } from '~/lib/utils'
-import { useTheme } from '~/routes/resources.theme-switch'
 import { ErrorPage } from '~/components/error'
 import { GeneralErrorBoundary } from '~/components/error-boundary'
 
@@ -120,17 +119,6 @@ export function ErrorBoundary() {
   return (
     <GeneralErrorBoundary
       statusHandlers={{
-        404: () => (
-          <ErrorPage
-            title="404 - Oh no, you found a page that's missing stuff."
-            subtitle={`"${location.pathname}" is not a page. So sorry.`}
-            action={
-              <Link to="/" className="underline">
-                Go home
-              </Link>
-            }
-          />
-        ),
         400: ({ error }) => (
           <ErrorPage
             title="400 - Oh no, you did something wrong."

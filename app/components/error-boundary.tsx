@@ -32,7 +32,7 @@ function GeneralErrorBoundary({
   }
 
   return (
-    <div className="container mx-auto flex min-h-screen items-center justify-center py-20">
+    <div className="container mx-auto flex items-center justify-center py-20">
       {isRouteErrorResponse(error)
         ? (statusHandlers?.[error.status] ?? defaultStatusHandler)({
             error,
