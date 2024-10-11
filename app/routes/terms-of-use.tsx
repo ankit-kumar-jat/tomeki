@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           Terms Of Use
         </h1>
       </div>
-      <div className="prose mx-auto text-justify dark:prose-invert">
+      <div className="prose mx-auto text-justify dark:prose-invert lg:prose-lg">
         <p>
           By accessing {SITE_NAME}, you agree to the following terms and
           conditions. Please read them carefully.

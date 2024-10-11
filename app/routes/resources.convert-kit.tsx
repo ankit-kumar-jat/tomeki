@@ -88,7 +88,7 @@ export function NewsletterSubscriptionForm() {
   }, [state])
 
   return (
-    <div className="relative my-16 grid grid-cols-[1/1] place-items-center text-center md:my-20">
+    <div className="relative mx-auto my-16 grid max-w-lg grid-cols-[1/1] place-items-center text-center md:my-20">
       <fetcher.Form
         action="/resources/convert-kit"
         method="post"
@@ -99,14 +99,14 @@ export function NewsletterSubscriptionForm() {
         )}
         aria-hidden={state !== 'success'}
       >
-        <h2 className="mx-auto max-w-5xl text-balance text-2xl drop-shadow-md sm:text-3xl lg:text-4xl">
+        <h2 className="text-balance text-2xl drop-shadow-md sm:text-3xl lg:text-4xl">
           Unlock a World of Books!
         </h2>
-        <p className="mx-auto mt-2 max-w-lg drop-shadow-sm">
+        <p className="mt-2 drop-shadow-sm">
           Join our newsletter to receive the latest book discoveries, reading
           tips, and exclusive updates straight to your inbox.
         </p>
-        <div className="mx-auto mt-8 flex max-w-lg rounded-full border border-foreground/30">
+        <div className="mt-8 flex rounded-full border border-foreground/30">
           <input
             ref={inputRef}
             name="email"
@@ -123,7 +123,7 @@ export function NewsletterSubscriptionForm() {
             {state === 'submitting' ? 'Subscribing...' : 'Subscibe'}
           </button>
         </div>
-        <p className="mt-2 text-sm text-destructive">
+        <p className="mt-2 text-sm text-destructive drop-shadow-sm">
           {fetcher.data?.error ? fetcher.data?.message : <>&nbsp;</>}
         </p>
       </fetcher.Form>
