@@ -1,11 +1,14 @@
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import {
+  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
+  useRouteLoaderData,
 } from '@remix-run/react'
 import type { ShouldRevalidateFunction } from '@remix-run/react'
 
@@ -17,8 +20,10 @@ import GoogleAnalytics from '~/components/google-analytics'
 import GoogleAdsScript from '~/components/ads/google/google-ads-script'
 import { ClientHintCheck, getHints } from '~/lib/client-hints'
 import { getTheme, type Theme } from '~/lib/theme.server'
-import { cn } from '~/lib/utils'
+import { cn, getErrorMessage } from '~/lib/utils'
 import { useTheme } from '~/routes/resources.theme-switch'
+import { ErrorPage } from '~/components/error'
+import { GeneralErrorBoundary } from '~/components/error-boundary'
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   return {
@@ -42,7 +47,10 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({ formAction }) => {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const theme = useTheme()
+  const data = useRouteLoaderData<typeof loader>('root')
+
+  const theme =
+    data?.requestInfo.userPrefs.theme ?? data?.requestInfo.hints.theme
   return (
     <html lang="en">
       <head>
@@ -103,5 +111,64 @@ export default function App() {
       <GoogleAnalytics />
       <GoogleAdsScript />
     </>
+  )
+}
+
+export function ErrorBoundary() {
+  const location = useLocation()
+
+  return (
+    <GeneralErrorBoundary
+      statusHandlers={{
+        404: () => (
+          <ErrorPage
+            title="404 - Oh no, you found a page that's missing stuff."
+            subtitle={`"${location.pathname}" is not a page. So sorry.`}
+            action={
+              <Link to="/" className="underline">
+                Go home
+              </Link>
+            }
+          />
+        ),
+        400: ({ error }) => (
+          <ErrorPage
+            title="400 - Oh no, you did something wrong."
+            subtitle={getErrorMessage(
+              error,
+              `If you think It is a mistake, let us know...`,
+            )}
+            action={
+              <Link to="/" className="underline">
+                Go home
+              </Link>
+            }
+          />
+        ),
+        500: () => (
+          <ErrorPage
+            title="500 - Oh no, something did not go well."
+            subtitle={`"${location.pathname}" is currently not working. So sorry.`}
+            action={
+              <Link to="/" className="underline">
+                Go home
+              </Link>
+            }
+          />
+        ),
+      }}
+      unexpectedErrorHandler={error => (
+        <ErrorPage
+          error={error as Error}
+          title="500 - Oh no, something did not go well."
+          subtitle={`"${location.pathname}" is currently not working. So sorry.`}
+          action={
+            <Link to="/" className="underline">
+              Go home
+            </Link>
+          }
+        />
+      )}
+    />
   )
 }
