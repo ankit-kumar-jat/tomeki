@@ -7,7 +7,7 @@ import {
   HOURLY_CACHE_OPTIONS,
 } from './api-client.server'
 import { format } from 'date-fns'
-import { SITE_URL } from '~/config/site'
+import { BLOGGER_BLOG_NAME, SITE_URL } from '~/config/site'
 
 interface GetBlogPostsOptions {
   key: string
@@ -80,7 +80,7 @@ export async function getBlogLabels() {
   const feedRes = await apiClient<BlogFeed>(
     {
       endpoint: '/feeds/posts/summary',
-      url: 'https://tomeki-books.blogspot.com/',
+      url: `https://${BLOGGER_BLOG_NAME}.blogspot.com/`,
     },
     {
       params: { alt: 'json', 'max-results': 0 },

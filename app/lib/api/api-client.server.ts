@@ -1,5 +1,6 @@
-export const GOOGLE_BLOGGER_API_URL =
-  'https://blogger.googleapis.com/v3/blogs/3354417192831064260/'
+import { BLOGGER_BLOG_ID } from '~/config/site'
+
+export const GOOGLE_BLOGGER_API_URL = `https://blogger.googleapis.com/v3/blogs/${BLOGGER_BLOG_ID}/`
 
 // For caching using cludflare use cf option
 // https://developers.cloudflare.com/workers/runtime-apis/request/#the-cf-property-requestinitcfproperties
