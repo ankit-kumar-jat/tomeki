@@ -1,6 +1,7 @@
 import type { MetaFunction, HeadersFunction } from '@remix-run/cloudflare'
 import { SITE_NAME, SITE_URL } from '~/config/site'
 import { getMetaTitle } from '~/lib/utils'
+import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 
 export const headers: HeadersFunction = () => {
   // cache for 5 min
@@ -19,33 +20,61 @@ export default function About() {
           About
         </h1>
       </div>
-      <div className="prose mx-auto dark:prose-invert">
+      <div className="prose mx-auto dark:prose-invert lg:prose-lg">
         <p>
-          Welcome to {SITE_NAME}, your go-to destination for discovering
-          millions of books from around the world. Whether you're a casual
-          reader, a literary enthusiast, or someone on the hunt for a specific
-          title, {SITE_NAME} makes it easy to explore, search, and enjoy the
-          vast world of books.
+          Welcome to Tomeki, your go-to destination for everything book-related!
+          At Tomeki, we believe that books have the power to inspire, transform,
+          and connect us, no matter where we are in the world.
         </p>
         <p>
-          Our mission is to connect readers with the stories they love, making
-          literature more accessible and enjoyable for everyone. We believe in
-          the power of books to inspire, educate, and entertain, and we strive
-          to create an intuitive platform that brings this experience to your
-          fingertips.
+          <strong>What We Offer</strong>
+          <br />
+          Whether you&rsquo;re a casual reader or a dedicated bookworm, Tomeki
+          has something for you. We offer:
+        </p>
+        <ul>
+          <li>
+            <strong>Book Reviews:</strong> In-depth reviews of the latest
+            releases, bestsellers, and timeless classics.
+          </li>
+          <li>
+            <strong>Curated Recommendations:</strong> Handpicked book lists
+            tailored to different genres, moods, and reading preferences.
+          </li>
+          <li>
+            <strong>Literary Insights:</strong> Articles exploring themes,
+            authors, and trends in the world of literature.
+          </li>
+          <li>
+            <strong>Community:</strong> A space for readers to connect, share
+            their thoughts, and discover their next great read.
+          </li>
+        </ul>
+        <p>
+          <strong>Our Mission</strong>
+          <br />
+          At Tomeki, we&rsquo;re passionate about helping readers discover books
+          that speak to them. We&rsquo;re here to make it easier for you to
+          explore new titles, find hidden gems, and expand your literary
+          horizons.
         </p>
         <p>
-          At {SITE_NAME}, we value diversity, featuring books across genres,
-          languages, and cultures. Whether you're diving into fiction, exploring
-          history, learning from self-help, or studying science, you'll find the
-          perfect book for every mood and moment.
+          <strong>Why Tomeki?</strong>
+          <br />
+          We don&rsquo;t just focus on bestsellers&mdash;we dive into books from
+          all genres and authors, bringing a fresh perspective on the world of
+          literature. Our goal is to foster a community where readers can come
+          together, share recommendations, and discuss books they love.
         </p>
         <p>
-          We are passionate about books and aim to build a community that
-          celebrates the joy of reading. Join us on this literary journey, and
-          discover your next favorite book on {SITE_NAME}.
+          <strong>Join Us</strong>
+          <br />
+          Sign up for our newsletter to stay updated on the latest reviews, book
+          recommendations, and exclusive content. Let's journey through the
+          world of books together!
         </p>
       </div>
+      <NewsletterSubscriptionForm />
     </div>
   )
 }
