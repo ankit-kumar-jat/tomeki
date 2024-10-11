@@ -1,4 +1,3 @@
-export const OPEN_LIBRARY_API_URL = 'https://openlibrary.org/'
 export const GOOGLE_BLOGGER_API_URL =
   'https://blogger.googleapis.com/v3/blogs/3354417192831064260/'
 
@@ -43,7 +42,7 @@ export async function apiClient<T>(
   const headers = {
     'Content-Type': 'application/json',
     'Accept-Encoding': 'gzip, br',
-    'User-Agent': 'Tomeki/1.0 (ankit@yopmail.com , gzip)',
+    'User-Agent': 'Tomeki/1.0 (gzip)',
   }
 
   const config: RequestInit = {
@@ -83,13 +82,6 @@ export async function apiClient<T>(
 
   console.warn(await res.text())
   throw new Error(`Fetch for api failed with code: ${res.status}`)
-}
-
-export async function openLibApiClient<T>(
-  endpoint: string,
-  requestInit: RequestInit & { body?: object; params?: object } = {},
-) {
-  return apiClient<T>({ endpoint, url: OPEN_LIBRARY_API_URL }, requestInit)
 }
 
 export async function bloggerApiClient<T>(

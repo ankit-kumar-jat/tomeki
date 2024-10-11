@@ -15,7 +15,6 @@ import Footer from '~/components/footer'
 import { ProgressBar } from '~/components/progress-bar'
 import GoogleAnalytics from '~/components/google-analytics'
 import GoogleAdsScript from '~/components/ads/google/google-ads-script'
-import InfolinksAdsScript from './components/ads/infolinks/infolinks-ads-script'
 import { ClientHintCheck, getHints } from '~/lib/client-hints'
 import { getTheme, type Theme } from '~/lib/theme.server'
 import { cn } from '~/lib/utils'
@@ -103,7 +102,6 @@ export default function App() {
       <ProgressBar />
       <GoogleAnalytics />
       <GoogleAdsScript />
-      <InfolinksAdsScript />
     </>
   )
 }

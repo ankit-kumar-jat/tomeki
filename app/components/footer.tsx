@@ -19,9 +19,6 @@ function Footer() {
       </div>
       <div className="my-4 flex flex-col-reverse items-center gap-2 text-xs md:flex-row md:justify-between">
         <p>© 2024 Tomeki. All Rights Reserved.</p>
-        <Link to="https://openlibrary.org" target="_black">
-          Powred By OpenLibray
-        </Link>
       </div>
     </footer>
   )
