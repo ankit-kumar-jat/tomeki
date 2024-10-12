@@ -14,6 +14,10 @@ interface GetBlogPostsOptions {
   labels?: string
   maxResults?: number
   pageToken?: string
+  orderBy?: 'UPDATED' | 'PUBLISHED'
+  sortOption?: 'DESCENDING' | 'ASCENDING'
+  quotaUser?: string
+  status?: 'LIVE' | 'DRAFT' | 'SCHEDULED' | 'SOFT_TRASHED'
 }
 
 export async function getBlogPosts({
@@ -21,6 +25,10 @@ export async function getBlogPosts({
   maxResults,
   labels,
   pageToken,
+  status = 'LIVE',
+  quotaUser,
+  orderBy,
+  sortOption,
 }: GetBlogPostsOptions) {
   const blogPostsRes = await bloggerApiClient<BlogPosts>('/posts', {
     params: {
@@ -30,6 +38,10 @@ export async function getBlogPosts({
       maxResults,
       pageToken,
       labels,
+      status,
+      quotaUser,
+      orderBy,
+      sortOption,
       fields:
         'kind,nextPageToken,items(id,url,title,images,published,labels,updated)',
     },

@@ -24,17 +24,17 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       getBlogPosts({
         key: apiKey,
         maxResults: 3,
-        labels: 'List',
+        labels: 'Book List,Must-Read Books',
       }),
       getBlogPosts({
         key: apiKey,
         maxResults: 3,
-        labels: 'Review',
+        labels: 'Reviews',
       }),
       getBlogPosts({
         key: apiKey,
         maxResults: 3,
-        labels: 'Author Spotlight',
+        labels: 'Author Spotlights',
       }),
       getBlogLabels(),
     ])
