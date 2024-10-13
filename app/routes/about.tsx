@@ -20,7 +20,7 @@ export default function About() {
           About
         </h1>
       </div>
-      <div className="prose mx-auto dark:prose-invert lg:prose-lg">
+      <div className="prose prose-zinc mx-auto dark:prose-invert lg:prose-lg">
         <p>
           Welcome to Tomeki, your go-to destination for everything book-related!
           At Tomeki, we believe that books have the power to inspire, transform,

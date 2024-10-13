@@ -19,7 +19,7 @@ export default function About() {
           Affiliate Disclosure
         </h1>
       </div>
-      <div className="prose mx-auto text-justify dark:prose-invert lg:prose-lg">
+      <div className="prose prose-zinc mx-auto text-justify dark:prose-invert lg:prose-lg">
         <p>
           Tomeki is a participant in the Amazon Services LLC Associates Program,
           an affiliate advertising program designed to provide a means for sites

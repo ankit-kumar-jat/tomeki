@@ -93,7 +93,7 @@ export default function BlogPostDetails() {
 
   return (
     <div className="container my-10">
-      <div className="prose mx-auto dark:prose-invert">
+      <div className="prose prose-zinc mx-auto dark:prose-invert lg:prose-lg">
         <div className="py-8 md:py-10">
           <Link to="/blogs">Back to all blogs</Link>
         </div>
