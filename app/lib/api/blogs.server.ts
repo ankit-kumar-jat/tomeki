@@ -4,6 +4,7 @@ import { BlogFeed, BlogPosts, Post } from '~/lib/blogger-api'
 import {
   apiClient,
   bloggerApiClient,
+  bloggerFeedApiClient,
   HOURLY_CACHE_OPTIONS,
 } from './api-client.server'
 import { format } from 'date-fns'
@@ -88,34 +89,75 @@ export async function getBlogPost({ key, path }: GetBlogPostOptions) {
   return blogPostsRes
 }
 
-export async function getBlogLabels() {
-  const feedRes = await apiClient<BlogFeed>(
-    {
-      endpoint: '/feeds/posts/summary',
-      url: `https://${BLOGGER_BLOG_NAME}.blogspot.com/`,
-    },
-    {
-      params: { alt: 'json', 'max-results': 0 },
-      cf: HOURLY_CACHE_OPTIONS,
-    },
-  )
+interface GetBlogFeedOptions {
+  q?: string
+  maxResults?: number
+  startIndex?: number
+  labels?: string
+  publishedMin?: string
+}
 
-  return feedRes?.feed.category.map(({ term }) => term) ?? []
+export async function getBlogFeed({
+  maxResults = 10,
+  startIndex,
+  q,
+  labels,
+  publishedMin,
+}: GetBlogFeedOptions) {
+  const feedRes = await bloggerFeedApiClient<BlogFeed>('/posts/default', {
+    params: {
+      alt: 'json',
+      'max-results': maxResults,
+      'start-index': startIndex,
+      q,
+      category: labels,
+      'published-min': publishedMin,
+    },
+    cf: HOURLY_CACHE_OPTIONS,
+  })
+  return formatBlogFeed(feedRes)
+}
+
+export async function getBlogLabels() {
+  const feedRes = await getBlogFeed({ maxResults: 0 })
+
+  return feedRes.labels
 }
 
 export async function getBlogSitemapEntries() {
-  const blogPostsRes = await apiClient<ReturnType<typeof getBlogPosts>>(
-    { endpoint: '/blogs', url: SITE_URL },
-    {
-      params: { _data: 'routes/blogs._index' },
-      cf: HOURLY_CACHE_OPTIONS,
-    },
-  )
+  const feedRes = await getBlogFeed({ maxResults: 2000 })
 
-  if (!blogPostsRes?.posts) return []
-
-  return blogPostsRes.posts.map(post => ({
+  const postEntries = feedRes.posts.map(post => ({
     route: `/blogs${post.path}`,
     lastmod: post.updated,
   }))
+
+  const labelEntries = feedRes.labels.map(label => ({
+    route: `/blogs?labels=${encodeURIComponent(label)}`,
+  }))
+
+  return [...postEntries, ...labelEntries]
+}
+
+function formatBlogFeed(feedRes?: BlogFeed) {
+  return {
+    labels: feedRes?.feed.category.map(({ term }) => term) ?? [],
+    totalPosts: Number(feedRes?.feed.openSearch$totalResults) ?? 0,
+    startIndex: Number(feedRes?.feed.openSearch$startIndex) ?? 0,
+    itemsPerPage: Number(feedRes?.feed.openSearch$itemsPerPage) ?? 0,
+    posts:
+      feedRes?.feed.entry.map(postEntry => ({
+        id: postEntry.id.$t.split('post-')[0],
+        title: postEntry.title.$t,
+        coverImage: postEntry.media$thumbnail.url,
+        path: new URL(
+          postEntry.link.find(link => link.rel === 'alternate')?.href ||
+            'https://demo.test', // this to prevent error when url is not available
+        ).pathname,
+        published: postEntry.published.$t,
+        labels: postEntry.category.map(({ term }) => term) ?? [],
+        updated: postEntry.updated.$t,
+        content: postEntry.content.$t,
+      })) ?? [],
+  }
 }

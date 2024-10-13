@@ -1,6 +1,7 @@
-import { BLOGGER_BLOG_ID } from '~/config/site'
+import { BLOGGER_BLOG_ID, BLOGGER_BLOG_NAME } from '~/config/site'
 
 export const GOOGLE_BLOGGER_API_URL = `https://blogger.googleapis.com/v3/blogs/${BLOGGER_BLOG_ID}/`
+export const BLOGGER_FEED_API_URL = `https://${BLOGGER_BLOG_NAME}.blogspot.com/feeds/`
 
 // For caching using cludflare use cf option
 // https://developers.cloudflare.com/workers/runtime-apis/request/#the-cf-property-requestinitcfproperties
@@ -90,4 +91,11 @@ export async function bloggerApiClient<T>(
   requestInit: RequestInit & { body?: object; params?: object } = {},
 ) {
   return apiClient<T>({ endpoint, url: GOOGLE_BLOGGER_API_URL }, requestInit)
+}
+
+export async function bloggerFeedApiClient<T>(
+  endpoint: string,
+  requestInit: RequestInit & { body?: object; params?: object } = {},
+) {
+  return apiClient<T>({ endpoint, url: BLOGGER_FEED_API_URL }, requestInit)
 }

@@ -45,5 +45,56 @@ export interface Replies {
 }
 
 export interface BlogFeed {
-  feed: { category: { term: string }[] }
+  feed: {
+    updated: FeedItemValue
+    category: FeedCategory[]
+    title: FeedBlogTitle
+    subtitle: FeedBlogContent
+    openSearch$totalResults: FeedItemValue
+    openSearch$startIndex: FeedItemValue
+    openSearch$itemsPerPage: FeedItemValue
+    entry: FeedPostEntry[]
+  }
+}
+
+export interface FeedPostEntry {
+  id: FeedItemValue
+  published: FeedItemValue
+  updated: FeedItemValue
+  category: FeedCategory[]
+  title: FeedBlogTitle
+  content: FeedBlogContent
+  link: FeedLink[]
+  media$thumbnail: FeedMediaThumbnail
+}
+
+export interface FeedCategory {
+  term: string
+}
+
+export interface FeedItemValue {
+  $t: string
+}
+
+export interface FeedBlogTitle {
+  type: string
+  $t: string
+}
+
+export interface FeedBlogContent {
+  type: string
+  $t: string
+}
+
+export interface FeedLink {
+  rel: string
+  type: string
+  href: string
+}
+
+export interface FeedMediaThumbnail {
+  xmlns$media: string
+  url: string
+  height: string
+  width: string
 }
