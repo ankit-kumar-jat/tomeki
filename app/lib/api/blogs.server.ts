@@ -8,7 +8,7 @@ import {
   HOURLY_CACHE_OPTIONS,
 } from './api-client.server'
 import { format } from 'date-fns'
-import { BLOGGER_BLOG_NAME, SITE_URL } from '~/config/site'
+import { SitemapEntry } from '@nasa-gcn/remix-seo/build/types'
 
 interface GetBlogPostsOptions {
   key: string
@@ -124,16 +124,18 @@ export async function getBlogLabels() {
   return feedRes.labels
 }
 
-export async function getBlogSitemapEntries() {
+export async function getBlogSitemapEntries(): Promise<SitemapEntry[]> {
   const feedRes = await getBlogFeed({ maxResults: 2000 })
 
-  const postEntries = feedRes.posts.map(post => ({
+  const postEntries: SitemapEntry[] = feedRes.posts.map(post => ({
     route: `/blogs${post.path}`,
     lastmod: post.updated,
+    priority: 0.7,
   }))
 
-  const labelEntries = feedRes.labels.map(label => ({
+  const labelEntries: SitemapEntry[] = feedRes.labels.map(label => ({
     route: `/blogs?labels=${encodeURIComponent(label)}`,
+    priority: 0.5,
   }))
 
   return [...postEntries, ...labelEntries]
@@ -146,7 +148,7 @@ function formatBlogFeed(feedRes?: BlogFeed) {
     startIndex: Number(feedRes?.feed.openSearch$startIndex) ?? 0,
     itemsPerPage: Number(feedRes?.feed.openSearch$itemsPerPage) ?? 0,
     posts:
-      feedRes?.feed.entry.map(postEntry => ({
+      feedRes?.feed.entry?.map(postEntry => ({
         id: postEntry.id.$t.split('post-')[0],
         title: postEntry.title.$t,
         coverImage: postEntry.media$thumbnail.url,

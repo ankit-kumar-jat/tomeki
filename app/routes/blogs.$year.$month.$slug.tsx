@@ -53,9 +53,7 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 export const handle: SEOHandle = {
   getSitemapEntries: serverOnly$(async () => {
     const entries = await getBlogSitemapEntries()
-    return entries.map(entry => {
-      return { route: entry.route, priority: 0.7, lastmod: entry.lastmod }
-    })
+    return entries
   }),
 }
 

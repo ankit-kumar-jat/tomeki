@@ -53,7 +53,7 @@ export interface BlogFeed {
     openSearch$totalResults: FeedItemValue
     openSearch$startIndex: FeedItemValue
     openSearch$itemsPerPage: FeedItemValue
-    entry: FeedPostEntry[]
+    entry?: FeedPostEntry[]
   }
 }
 
