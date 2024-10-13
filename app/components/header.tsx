@@ -7,7 +7,7 @@ import { ThemeSwitch } from '~/routes/resources.theme-switch'
 const navLinks = [
   { to: '/', title: 'Home', end: true },
   { to: '/search', title: 'Search' },
-  { to: '/blogs', title: 'Explore All' },
+  { to: '/blogs', title: 'Explore' },
   { to: '/about', title: 'About' },
 ]
 
@@ -20,7 +20,7 @@ function Header({ themePreference }: { themePreference?: Theme | null }) {
           <span className="text-xl font-medium">Tomeki</span>
         </Link>
 
-        <nav className="order-3 flex w-full flex-wrap gap-3 sm:order-none sm:w-auto">
+        <nav className="order-3 flex w-full flex-wrap gap-3 sm:order-none sm:w-auto md:gap-4">
           {navLinks.map(({ title, ...rest }) => (
             <NavLink
               key={title}

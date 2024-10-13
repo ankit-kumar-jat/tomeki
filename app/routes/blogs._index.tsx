@@ -44,6 +44,9 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       nextPageToken: postsRes.nextPageToken,
       posts: postsRes.posts,
       labels,
+      selectedLabelsString: labelsSelected
+        .map(label => `"${label}"`)
+        .join(', '),
     },
     { headers },
   )
@@ -54,15 +57,25 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  const metaTags: MetaDescriptor[] = [
-    {
+  const metaTags: MetaDescriptor[] = []
+
+  if (data?.selectedLabelsString) {
+    metaTags.push({
+      title: `Blogs about ${data.selectedLabelsString} - Explore the Latest Articles on ${data.selectedLabelsString}`,
+    })
+    metaTags.push({
+      name: 'description',
+      content: `Discover insightful blogs and articles focused on ${data.selectedLabelsString}. Stay updated with the latest trends, tips, and news related to ${data.selectedLabelsString}.`,
+    })
+  } else {
+    metaTags.push({
       title: `Latest Updates, Reviews and Book Discoveries | ${SITE_NAME} Blog`,
-    },
-    {
+    })
+    metaTags.push({
       name: 'description',
       content: `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`,
-    },
-  ]
+    })
+  }
 
   if (data?.posts?.length) {
     data?.posts.slice(0, 3).forEach(post => {
@@ -81,7 +94,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 }
 
 export default function Blogs() {
-  const { nextPageToken, posts, labels } = useLoaderData<typeof loader>()
+  const { nextPageToken, posts, labels, selectedLabelsString } =
+    useLoaderData<typeof loader>()
   const [searchParams, setSearchParams] = useSearchParams()
   const labelsSelected = searchParams.getAll('labels')
 
@@ -129,11 +143,17 @@ export default function Blogs() {
     <div className="container my-10">
       <div className="space-y-4 py-10 text-center md:py-14">
         <h1 className="text-balance text-3xl drop-shadow-md sm:text-5xl">
-          Explore All
+          Explore
         </h1>
         <p className="mx-auto max-w-lg text-balance text-base font-medium text-muted-foreground md:text-lg">
-          Explore the World of Books with {SITE_NAME}: Insights, Reviews, and
-          Recommendations.
+          {selectedLabelsString ? (
+            <>Explore Blogs Tagged with {selectedLabelsString}</>
+          ) : (
+            <>
+              Explore the World of Books with {SITE_NAME}: Insights, Reviews,
+              and Recommendations.
+            </>
+          )}
         </p>
       </div>
       <div className="mb-10 mt-4 space-y-4 md:mb-14">
