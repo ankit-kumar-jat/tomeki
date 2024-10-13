@@ -1,8 +1,19 @@
+import { LoaderFunctionArgs, redirect } from '@remix-run/cloudflare'
 import { Link, useLocation } from '@remix-run/react'
 import { ErrorPage } from '~/components/error'
 import { GeneralErrorBoundary } from '~/components/error-boundary'
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url)
+  const pathname = url.pathname
+
+  const isOld = Boolean(
+    pathname.match(/^\/(books|works|objects|authors|languages)(\/.*)*$/),
+  )
+  if (isOld) {
+    return redirect('/', { status: 302 })
+  }
+
   throw new Response('Not found', { status: 404 })
 }
 
