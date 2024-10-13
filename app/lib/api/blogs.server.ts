@@ -144,9 +144,9 @@ export async function getBlogSitemapEntries(): Promise<SitemapEntry[]> {
 function formatBlogFeed(feedRes?: BlogFeed) {
   return {
     labels: feedRes?.feed.category.map(({ term }) => term) ?? [],
-    totalPosts: Number(feedRes?.feed.openSearch$totalResults) ?? 0,
-    startIndex: Number(feedRes?.feed.openSearch$startIndex) ?? 0,
-    itemsPerPage: Number(feedRes?.feed.openSearch$itemsPerPage) ?? 0,
+    totalResults: Number(feedRes?.feed.openSearch$totalResults.$t) ?? 0,
+    startIndex: Number(feedRes?.feed.openSearch$startIndex.$t) ?? 0,
+    itemsPerPage: Number(feedRes?.feed.openSearch$itemsPerPage.$t) ?? 0,
     posts:
       feedRes?.feed.entry?.map(postEntry => ({
         id: postEntry.id.$t.split('post-')[0],

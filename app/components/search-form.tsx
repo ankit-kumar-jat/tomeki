@@ -3,7 +3,7 @@ import { SearchIcon, XIcon } from 'lucide-react'
 
 function SearchForm({
   searchInputName = 'q',
-  placeholder = 'Search by book title, author...',
+  placeholder = 'Type here to search',
 }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const searchValue = searchParams.get(searchInputName) || ''
