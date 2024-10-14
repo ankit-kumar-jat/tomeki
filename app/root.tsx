@@ -83,14 +83,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
-        <script type="application/ld+json">{`
-          {
-            "@context": "https://schema.org",
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: `{
+            "@context": "https://schema.org/",
             "@type":"WebSite",
             "name": "${SITE_NAME}",
             "url": "${SITE_URL}"
-          }
-        `}</script>
+          }`,
+          }}
+        ></script>
         {/* this should be in head to prevent first time theme blinking */}
         <ClientHintCheck />
       </head>

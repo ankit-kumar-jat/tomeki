@@ -6,7 +6,6 @@ import type {
 } from '@remix-run/cloudflare'
 import {
   json,
-  Link,
   useFetcher,
   useLoaderData,
   useSearchParams,
@@ -14,9 +13,9 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { PostCard } from '~/components/post-card'
 import { Button } from '~/components/ui/button'
-import { SITE_NAME } from '~/config/site'
+import { SITE_NAME, SITE_URL } from '~/config/site'
 import { getBlogLabels, getBlogPosts } from '~/lib/api/blogs.server'
-import { cn, getMetaTitle } from '~/lib/utils'
+import { cn, getFullURL, getMetaTitle } from '~/lib/utils'
 import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
@@ -57,32 +56,26 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  let metaTags: MetaDescriptor[] = []
+  let title = ''
+  let description = ''
 
   if (data?.selectedLabelsString) {
-    metaTags = [
-      {
-        title: getMetaTitle(
-          `Explore the Latest Articles on ${data.selectedLabelsString}`,
-        ),
-      },
-      {
-        name: 'description',
-        content: `Discover insightful blogs and articles focused on ${data.selectedLabelsString}. Stay updated with the latest trends, tips, and news related to ${data.selectedLabelsString}.`,
-      },
-    ]
+    title = getMetaTitle(
+      `Explore the Latest Articles on ${data.selectedLabelsString}`,
+    )
+    description = `Discover insightful blogs and articles focused on ${data.selectedLabelsString}. Stay updated with the latest trends, tips, and news related to ${data.selectedLabelsString}.`
   } else {
-    metaTags = [
-      { title: getMetaTitle('Latest Updates, Reviews and Book Discoveries') },
-      {
-        name: 'description',
-        content: `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`,
-      },
-    ]
+    title = getMetaTitle('Latest Updates, Reviews and Book Discoveries')
+    description = `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`
   }
 
+  let metaTags: MetaDescriptor[] = [
+    { title },
+    { name: 'description', content: description },
+  ]
+
   if (data?.posts?.length) {
-    data?.posts.slice(0, 3).forEach(post => {
+    data.posts.slice(0, 3).forEach(post => {
       if (post.coverImage) {
         metaTags.push({
           tagName: 'link',
@@ -91,6 +84,35 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
           as: 'image',
         })
       }
+    })
+    metaTags.push({
+      'script:ld+json': {
+        '@context': 'http://schema.org/',
+        '@type': 'Blog',
+        '@id': getFullURL('/blogs'),
+        name: title,
+        headline: title,
+        description,
+        publisher: {
+          '@type': 'Organization',
+          '@id': SITE_URL,
+          name: SITE_NAME,
+          logo: getFullURL('/android-chrome-192x192.png'),
+        },
+        blogPost: data.posts.map(post => ({
+          '@context': 'https://schema.org/',
+          '@type': 'BlogPosting',
+          '@id': post.id,
+          headline: post.title,
+          name: post.title,
+          image: post.coverImage,
+          inLanguage: 'en-US',
+          keywords: post.labels,
+          datePublished: post.publishedAt,
+          dateModified: post.updatedAt,
+          url: getFullURL(post.path),
+        })),
+      },
     })
   }
 

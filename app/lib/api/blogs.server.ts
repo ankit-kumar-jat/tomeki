@@ -57,7 +57,8 @@ export async function getBlogPosts({
       path: new URL(post.url).pathname,
       published: format(new Date(post.published), 'MMMM dd, yyyy'),
       labels: post.labels,
-      updated: post.updated, // need this for sitemap
+      updatedAt: post.updated,
+      publishedAt: post.published,
     })) ?? []
 
   return {
@@ -129,7 +130,7 @@ export async function getBlogSitemapEntries(): Promise<SitemapEntry[]> {
 
   const postEntries: SitemapEntry[] = feedRes.posts.map(post => ({
     route: `/blogs${post.path}`,
-    lastmod: post.updated,
+    lastmod: post.updatedAt,
     priority: 0.7,
   }))
 
@@ -156,9 +157,9 @@ function formatBlogFeed(feedRes?: BlogFeed) {
           postEntry.link.find(link => link.rel === 'alternate')?.href ||
             'https://demo.test', // this to prevent error when url is not available
         ).pathname,
-        published: postEntry.published.$t,
+        publishedAt: postEntry.published.$t,
         labels: postEntry.category.map(({ term }) => term) ?? [],
-        updated: postEntry.updated.$t,
+        updatedAt: postEntry.updated.$t,
         content: postEntry.content.$t,
       })) ?? [],
   }

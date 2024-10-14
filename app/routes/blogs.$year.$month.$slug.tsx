@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { format } from 'date-fns'
 import { SEOHandle } from '@nasa-gcn/remix-seo'
 import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
-import { SITE_NAME } from '~/config/site'
+import { SITE_NAME, SITE_URL } from '~/config/site'
 import {
   getBlogPost,
   getBlogPosts,
@@ -79,7 +79,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
     { name: 'description', content: description },
     {
       'script:ld+json': {
-        '@context': 'htts://schema.org',
+        '@context': 'https://schema.org/',
         '@type': 'BlogPosting',
         '@id': id,
         headline: title,
@@ -94,6 +94,22 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
         author: {
           '@type': 'Person',
           name: SITE_NAME,
+        },
+        isPartOf: {
+          '@type': 'Blog',
+          '@id': getFullURL('/blogs'),
+          name: SITE_NAME,
+          publisher: {
+            '@type': 'Organization',
+            '@id': SITE_URL,
+            name: SITE_NAME,
+          },
+        },
+        publisher: {
+          '@type': 'Organization',
+          '@id': SITE_URL,
+          name: SITE_NAME,
+          logo: getFullURL('/android-chrome-192x192.png'),
         },
       },
     },
