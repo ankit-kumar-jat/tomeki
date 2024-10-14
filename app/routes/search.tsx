@@ -5,6 +5,7 @@ import {
   MetaFunction,
 } from '@remix-run/cloudflare'
 import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import { useEffect, useRef } from 'react'
 import SearchForm from '~/components/search-form'
 import { getBlogFeed } from '~/lib/api/blogs.server'
 import { getFullURL, getMetaTitle } from '~/lib/utils'
@@ -67,22 +68,39 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 }
 
 export default function Search() {
-  const { posts, labels } = useLoaderData<typeof loader>()
+  const { posts, labels, q } = useLoaderData<typeof loader>()
+
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (q && resultsRef.current) {
+      resultsRef.current.focus()
+    }
+  }, [q])
+
   return (
     <div className="container my-10">
+      <h1 className="sr-only">Search for Articles & Insights</h1>
       <div className="mx-auto max-w-3xl">
         <SearchForm />
-        <div className="mt-4 min-h-60 space-y-4 lg:mt-6">
+        <div
+          className="mt-6 min-h-60 space-y-6 outline-none lg:mt-6"
+          aria-live="polite"
+          tabIndex={-1}
+          ref={resultsRef}
+        >
           {posts.length ? (
             <>
-              <p className="font-medium">Search Results</p>
+              <h2 className="font-medium sm:text-lg">
+                Search Results for "{q}"
+              </h2>
               <div className="space-y-4">
                 {posts.map(post => (
                   <PostCard
                     key={post.id}
                     title={post.title}
                     path={post.path}
-                    published={post.published}
+                    published={post.publishedAt}
                     coverImage={post.coverImage}
                     description={post.description}
                     labels={post.labels}
@@ -117,7 +135,7 @@ function PostCard({
   labels,
 }: PostCardProps) {
   return (
-    <div className="flex items-center border-b pb-4 sm:rounded-lg sm:border sm:p-3 md:p-4">
+    <div className="flex items-center border-b pb-4 ring-foreground focus-within:ring-1 sm:rounded-lg sm:border sm:p-3 md:p-4">
       <div className="relative hidden flex-shrink-0 sm:block">
         <img
           src={coverImage}
@@ -128,30 +146,35 @@ function PostCard({
           loading="lazy"
         />
 
-        <Link to={`/blogs${path}`} className="absolute inset-0">
+        <Link
+          to={`/blogs${path}`}
+          className="absolute inset-0 outline-none"
+          tabIndex={-1}
+        >
           <span className="sr-only">View {title}</span>
         </Link>
       </div>
       <div className="space-y-2 sm:pl-4 sm:pr-2">
-        <Link
-          to={`/blogs${path}`}
-          className="line-clamp-2 text-lg font-medium sm:line-clamp-1 md:text-xl"
-        >
-          {title}
-        </Link>
-        <p className="line-clamp-3 text-sm sm:line-clamp-2">{description}</p>
         {labels?.length ? (
-          <p className="mt-1 flex flex-wrap gap-2 text-xs md:text-sm">
-            {labels.map(label => (
+          <p className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
+            {labels.map((label, index) => (
               <span
                 key={label}
-                className="rounded-full bg-muted px-3 py-1 text-sm font-medium leading-tight text-muted-foreground"
+                className="rounded-full font-serif text-xs leading-none text-muted-foreground sm:text-sm"
               >
                 {label}
+                {index + 1 < labels.length ? <>, </> : ''}
               </span>
             ))}
           </p>
         ) : null}
+        <Link
+          to={`/blogs${path}`}
+          className="line-clamp-2 text-lg font-medium outline-none sm:line-clamp-1 md:text-xl"
+        >
+          {title}
+        </Link>
+        <p className="line-clamp-3 text-sm sm:line-clamp-2">{description}</p>
       </div>
     </div>
   )
