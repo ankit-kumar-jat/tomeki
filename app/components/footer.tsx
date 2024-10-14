@@ -1,4 +1,5 @@
 import { Link } from '@remix-run/react'
+import { RssIcon } from 'lucide-react'
 import Logo from '~/components/logo'
 
 function Footer() {
@@ -12,13 +13,25 @@ function Footer() {
           </Link>
         </div>
         <div className="flex items-center justify-center gap-4">
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms-of-use">Terms Of Use</Link>
-          <Link to="/affiliate-disclosure">Affiliate Disclosure</Link>
+          <Link className="hover:underline" to="/privacy-policy">
+            Privacy Policy
+          </Link>
+          <Link className="hover:underline" to="/terms-of-use">
+            Terms Of Use
+          </Link>
+          <Link className="hover:underline" to="/affiliate-disclosure">
+            Affiliate Disclosure
+          </Link>
         </div>
       </div>
       <div className="container my-4 flex flex-col-reverse items-center gap-2 text-xs md:flex-row md:justify-between">
         <p>© 2024 Tomeki. All Rights Reserved.</p>
+        <Link
+          to="/rss.xml"
+          className="inline-flex items-center gap-2 hover:underline"
+        >
+          <RssIcon width={12} /> RSS
+        </Link>
       </div>
     </footer>
   )
