@@ -10,11 +10,7 @@ import { format } from 'date-fns'
 import { SEOHandle } from '@nasa-gcn/remix-seo'
 import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 import { SITE_NAME, SITE_URL } from '~/config/site'
-import {
-  getBlogPost,
-  getBlogPosts,
-  getBlogSitemapEntries,
-} from '~/lib/api/blogs.server'
+import { getBlogPost, getBlogSitemapEntries } from '~/lib/api/blogs.server'
 import { getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
@@ -35,7 +31,10 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const formattedPost = {
     id: post.id,
     title: post.title,
-    coverImage: post.images?.[0]?.url ?? '',
+    coverImage:
+      post.images?.[0]?.url ??
+      post.content.match(/src=["'](.*?)["']/)?.[1] ??
+      '',
     published: format(new Date(post.published), 'MMMM dd, yyyy'),
     content: post.content,
     labels: post.labels,
