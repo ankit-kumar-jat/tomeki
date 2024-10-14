@@ -1,5 +1,5 @@
 export const SITE_URL = 'https://www.tomeki.site'
-export const SITE_NAME = 'Tomeki'
+export const SITE_NAME = 'Tomeki Blogs'
 
 export const GOOGLE_ANALYTICS_ID = 'G-7DWEG1YQ09'
 

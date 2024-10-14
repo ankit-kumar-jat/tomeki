@@ -15,7 +15,7 @@ import {
   getBlogPosts,
   getBlogSitemapEntries,
 } from '~/lib/api/blogs.server'
-import { Button } from '~/components/ui/button'
+import { getFullURL, getMetaTitle } from '~/lib/utils'
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const apiKey = context.cloudflare.env.BLOGGER_API_KEY
@@ -40,7 +40,8 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
     content: post.content,
     labels: post.labels,
     description: post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ?? '',
-    updated: post.updated,
+    updatedAt: post.updated,
+    publishedAt: post.published,
   }
 
   return json({ post: formattedPost }, { headers })
@@ -57,7 +58,7 @@ export const handle: SEOHandle = {
   }),
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   if (!data) {
     return [
       { title: 'Not Found' },
@@ -68,10 +69,34 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     ]
   }
 
+  const { title, description, coverImage, labels, publishedAt, updatedAt, id } =
+    data.post
+
   return [
-    { title: `${data.post.title} | ${SITE_NAME} Blog` },
-    { property: 'og:title', content: data.post.title },
-    { name: 'description', content: data.post.description },
+    { title: getMetaTitle(title) },
+    { property: 'og:title', content: title },
+    { property: 'og:image', content: coverImage },
+    { name: 'description', content: description },
+    {
+      'script:ld+json': {
+        '@context': 'htts://schema.org',
+        '@type': 'BlogPosting',
+        '@id': id,
+        headline: title,
+        name: title,
+        description,
+        image: coverImage,
+        inLanguage: 'en-US',
+        keywords: labels,
+        datePublished: publishedAt,
+        dateModified: updatedAt,
+        url: getFullURL(location.pathname),
+        author: {
+          '@type': 'Person',
+          name: SITE_NAME,
+        },
+      },
+    },
   ]
 }
 

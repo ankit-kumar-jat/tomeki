@@ -16,7 +16,7 @@ import { PostCard } from '~/components/post-card'
 import { Button } from '~/components/ui/button'
 import { SITE_NAME } from '~/config/site'
 import { getBlogLabels, getBlogPosts } from '~/lib/api/blogs.server'
-import { cn } from '~/lib/utils'
+import { cn, getMetaTitle } from '~/lib/utils'
 import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
@@ -57,24 +57,28 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  const metaTags: MetaDescriptor[] = []
+  let metaTags: MetaDescriptor[] = []
 
   if (data?.selectedLabelsString) {
-    metaTags.push({
-      title: `Blogs about ${data.selectedLabelsString} - Explore the Latest Articles on ${data.selectedLabelsString}`,
-    })
-    metaTags.push({
-      name: 'description',
-      content: `Discover insightful blogs and articles focused on ${data.selectedLabelsString}. Stay updated with the latest trends, tips, and news related to ${data.selectedLabelsString}.`,
-    })
+    metaTags = [
+      {
+        title: getMetaTitle(
+          `Explore the Latest Articles on ${data.selectedLabelsString}`,
+        ),
+      },
+      {
+        name: 'description',
+        content: `Discover insightful blogs and articles focused on ${data.selectedLabelsString}. Stay updated with the latest trends, tips, and news related to ${data.selectedLabelsString}.`,
+      },
+    ]
   } else {
-    metaTags.push({
-      title: `Latest Updates, Reviews and Book Discoveries | ${SITE_NAME} Blog`,
-    })
-    metaTags.push({
-      name: 'description',
-      content: `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`,
-    })
+    metaTags = [
+      { title: getMetaTitle('Latest Updates, Reviews and Book Discoveries') },
+      {
+        name: 'description',
+        content: `Stay updated with the latest book trends, recommendations, and reading tips. Explore the ${SITE_NAME} blog for insightful posts on new releases, book reviews, and more.`,
+      },
+    ]
   }
 
   if (data?.posts?.length) {

@@ -23,6 +23,7 @@ import { getTheme, type Theme } from '~/lib/theme.server'
 import { cn, getErrorMessage } from '~/lib/utils'
 import { ErrorPage } from '~/components/error'
 import { GeneralErrorBoundary } from '~/components/error-boundary'
+import { SITE_NAME, SITE_URL } from '~/config/site'
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   return {
@@ -82,6 +83,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type":"WebSite",
+            "name": "${SITE_NAME}",
+            "url": "${SITE_URL}"
+          }
+        `}</script>
         {/* this should be in head to prevent first time theme blinking */}
         <ClientHintCheck />
       </head>
