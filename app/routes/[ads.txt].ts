@@ -1,7 +1,5 @@
 export async function loader() {
-  const adsText = `
-    google.com, pub-6892126566030270, DIRECT, f08c47fec0942fa0
-    `
+  const adsText = `google.com, pub-6892126566030270, DIRECT, f08c47fec0942fa0`
   return new Response(adsText, {
     status: 200,
     headers: {
