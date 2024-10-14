@@ -102,7 +102,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
         blogPost: data.posts.map(post => ({
           '@context': 'https://schema.org/',
           '@type': 'BlogPosting',
-          '@id': post.id,
+          '@id': getFullURL(post.path),
           headline: post.title,
           name: post.title,
           image: post.coverImage,

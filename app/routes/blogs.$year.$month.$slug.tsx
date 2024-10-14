@@ -81,7 +81,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
       'script:ld+json': {
         '@context': 'https://schema.org/',
         '@type': 'BlogPosting',
-        '@id': id,
+        '@id': getFullURL(location.pathname),
         headline: title,
         name: title,
         description,
