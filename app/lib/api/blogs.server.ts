@@ -149,7 +149,7 @@ function formatBlogFeed(feedRes?: BlogFeed) {
     itemsPerPage: Number(feedRes?.feed.openSearch$itemsPerPage.$t) ?? 0,
     posts:
       feedRes?.feed.entry?.map(postEntry => ({
-        id: postEntry.id.$t.split('post-')[0],
+        id: postEntry.id.$t.split('post-')[1],
         title: postEntry.title.$t,
         coverImage: postEntry.media$thumbnail.url,
         path: new URL(

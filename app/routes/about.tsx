@@ -9,7 +9,14 @@ export const headers: HeadersFunction = () => {
 }
 
 export const meta: MetaFunction = () => {
-  return [{ title: getMetaTitle('About Us') }]
+  return [
+    { title: getMetaTitle('About Us') },
+    {
+      name: 'description',
+      content:
+        'At Tomeki, we believe that books have the power to inspire, transform, and connect us, no matter where we are in the world.',
+    },
+  ]
 }
 
 export default function About() {

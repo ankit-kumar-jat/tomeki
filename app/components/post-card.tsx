@@ -19,7 +19,7 @@ export function PostCard({
     <div className="flex flex-col gap-4 rounded-3xl border border-foreground/30 p-6">
       <img
         src={coverImage}
-        alt=""
+        alt={`Cover image of ${title}`}
         width="320"
         height="180"
         className="aspect-video h-auto w-full flex-shrink-0 rounded-3xl bg-muted object-cover"

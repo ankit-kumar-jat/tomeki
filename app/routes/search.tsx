@@ -33,8 +33,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     headers['X-Robots-Tag'] = 'noindex'
   }
 
-  // TODO: remove body from searchRes posts and add sort decription
-  return json({ ...searchRes, q }, { headers })
+  const formattedPost = searchRes.posts.map(post => ({
+    ...post,
+    content: undefined,
+    description: post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ?? '',
+  }))
+
+  return json({ ...searchRes, posts: formattedPost, q }, { headers })
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -79,6 +84,8 @@ export default function Search() {
                     path={post.path}
                     published={post.published}
                     coverImage={post.coverImage}
+                    description={post.description}
+                    labels={post.labels}
                   />
                 ))}
               </div>
@@ -98,6 +105,7 @@ interface PostCardProps {
   description?: string
   coverImage?: string
   published: string
+  labels?: string[]
 }
 
 function PostCard({
@@ -106,16 +114,17 @@ function PostCard({
   description,
   coverImage,
   published,
+  labels,
 }: PostCardProps) {
   return (
-    <div className="flex border-b pb-4 sm:rounded-lg sm:border sm:p-3 md:p-4">
+    <div className="flex items-center border-b pb-4 sm:rounded-lg sm:border sm:p-3 md:p-4">
       <div className="relative hidden flex-shrink-0 sm:block">
         <img
           src={coverImage}
-          alt={`Cover of ${title}`}
-          width={72}
-          height={72}
-          className="h-auto w-[72px] rounded-lg bg-muted object-cover"
+          alt={`Thumbnail of ${title}`}
+          width={80}
+          height={80}
+          className="h-auto w-20 rounded-lg bg-muted object-cover"
           loading="lazy"
         />
 
@@ -123,17 +132,26 @@ function PostCard({
           <span className="sr-only">View {title}</span>
         </Link>
       </div>
-      <div className="sm:pl-4 sm:pr-2">
+      <div className="space-y-2 sm:pl-4 sm:pr-2">
         <Link
           to={`/blogs${path}`}
-          className="line-clamp-2 text-base sm:line-clamp-1 sm:text-lg md:text-xl"
+          className="line-clamp-2 text-lg font-medium sm:line-clamp-1 md:text-xl"
         >
           {title}
         </Link>
-        {/* <p className="mt-1 text-xs md:text-sm">
-            {published}
-          </p> */}
-        <p className="text-sm">{description}</p>
+        <p className="line-clamp-3 text-sm sm:line-clamp-2">{description}</p>
+        {labels?.length ? (
+          <p className="mt-1 flex flex-wrap gap-2 text-xs md:text-sm">
+            {labels.map(label => (
+              <span
+                key={label}
+                className="rounded-full bg-muted px-3 py-1 text-sm font-medium leading-tight text-muted-foreground"
+              >
+                {label}
+              </span>
+            ))}
+          </p>
+        ) : null}
       </div>
     </div>
   )
