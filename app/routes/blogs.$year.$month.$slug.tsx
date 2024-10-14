@@ -21,7 +21,7 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const apiKey = context.cloudflare.env.BLOGGER_API_KEY
   if (!apiKey) throw Error('API key not found!')
 
-  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+  const headers = { 'Cache-Control': 'public, max-age=3600, s-maxage=300' }
 
   const post = await getBlogPost({
     key: apiKey,

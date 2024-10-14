@@ -5,7 +5,7 @@ import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 
 export const headers: HeadersFunction = () => {
   // cache for 5 min
-  return { 'Cache-Control': 'public, max-age=300, s-max-age=300' }
+  return { 'Cache-Control': 'public, max-age=3600, s-maxage=300' }
 }
 
 export const meta: MetaFunction = () => {

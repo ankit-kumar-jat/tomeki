@@ -18,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const labels = url.searchParams.getAll('label').toString()
 
   const headers: ResponseInit['headers'] = {
-    'Cache-Control': 'public, max-age=3600, s-max-age=3600',
+    'Cache-Control': 'public, max-age=3600, s-maxage=300',
   }
 
   const searchRes = await getBlogFeed({

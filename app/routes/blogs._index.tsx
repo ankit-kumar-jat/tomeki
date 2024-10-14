@@ -27,7 +27,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
   const labelsSelected = url.searchParams.getAll('labels')
   const nextPageToken = url.searchParams.get('next')
 
-  const headers = { 'Cache-Control': 'public, max-age=3600, s-max-age=3600' }
+  const headers = { 'Cache-Control': 'public, max-age=3600, s-maxage=300' }
 
   const [postsRes, labels] = await Promise.all([
     getBlogPosts({
