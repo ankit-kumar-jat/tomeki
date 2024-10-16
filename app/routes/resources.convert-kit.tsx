@@ -2,6 +2,7 @@ import type { ActionFunctionArgs } from '@remix-run/cloudflare'
 import { Link, useFetcher } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
 import { DynamicBlurBackground } from '~/components/dynamic-blur-background'
+import { trackEvent } from '~/lib/gtag.client'
 import { cn } from '~/lib/utils'
 
 type ConvertKitSubscriber = {
@@ -85,6 +86,14 @@ export function NewsletterSubscriptionForm() {
     }
 
     mounted.current = true
+  }, [state])
+
+  useEffect(() => {
+    if (state === 'success') {
+      trackEvent('sign_up_for_newsletter', {
+        subscriber_id: fetcher.data?.subscription?.id,
+      })
+    }
   }, [state])
 
   return (

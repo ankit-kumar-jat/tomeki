@@ -1,9 +1,9 @@
 import { GOOGLE_ANALYTICS_ID } from '~/config/site'
 
 function GoogleAnalytics() {
-  const isProd = process.env.NODE_ENV !== 'development'
+  const isProd = import.meta.env.PROD
 
-  if (!isProd) return
+  if (!isProd || !GOOGLE_ANALYTICS_ID) return
   return (
     <>
       <script

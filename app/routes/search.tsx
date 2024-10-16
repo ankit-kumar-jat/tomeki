@@ -8,6 +8,7 @@ import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
 import SearchForm from '~/components/search-form'
 import { getBlogFeed } from '~/lib/api/blogs.server'
+import { trackEvent } from '~/lib/gtag.client'
 import { getFullURL, getMetaTitle } from '~/lib/utils'
 
 const RESULTS_PER_PAGE = 20
@@ -75,6 +76,12 @@ export default function Search() {
   useEffect(() => {
     if (q && resultsRef.current) {
       resultsRef.current.focus()
+    }
+  }, [q])
+
+  useEffect(() => {
+    if (q) {
+      trackEvent('search', { search_term: q })
     }
   }, [q])
 

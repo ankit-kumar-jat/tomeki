@@ -4,6 +4,8 @@ import {
   useParams,
   useRouteError,
 } from '@remix-run/react'
+import { useEffect, useRef } from 'react'
+import { trackEvent } from '~/lib/gtag.client'
 import { getErrorMessage } from '~/lib/utils'
 
 type StatusHandler = (info: {
@@ -24,12 +26,23 @@ function GeneralErrorBoundary({
   statusHandlers?: Record<number, StatusHandler>
   unexpectedErrorHandler?: (error: unknown) => JSX.Element | null
 }) {
+  const isReported = useRef<Boolean>(false)
   const error = useRouteError()
   const params = useParams()
 
   if (typeof document !== 'undefined') {
     console.error(error)
   }
+
+  useEffect(() => {
+    if (!isReported.current) {
+      setTimeout(
+        () => trackEvent('exception', { description: error, fatal: false }),
+        500,
+      )
+      isReported.current = true
+    }
+  }, [error])
 
   return (
     <div className="container mx-auto flex items-center justify-center py-20">

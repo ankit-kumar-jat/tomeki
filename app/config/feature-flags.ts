@@ -1,3 +1,3 @@
 export const featureFlags = {
-  enableGoogleAds: true,
+  enableGoogleAds: false,
 }
