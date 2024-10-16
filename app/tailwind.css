@@ -59,7 +59,7 @@
 }
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-2 outline-offset-4 outline-foreground;
   }
   body {
     @apply bg-background text-foreground;

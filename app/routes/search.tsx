@@ -142,7 +142,7 @@ function PostCard({
   labels,
 }: PostCardProps) {
   return (
-    <div className="flex items-center border-b pb-4 ring-foreground focus-within:ring-1 sm:rounded-lg sm:border sm:p-3 md:p-4">
+    <div className="flex items-center border-b pb-4 ring-foreground focus-within:ring-2 sm:rounded-lg sm:border sm:p-3 md:p-4">
       <div className="relative hidden flex-shrink-0 sm:block">
         <img
           src={coverImage}

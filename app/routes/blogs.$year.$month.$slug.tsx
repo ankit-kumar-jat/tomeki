@@ -133,7 +133,9 @@ export default function BlogPostDetails() {
     <div className="container my-10">
       <div className="prose prose-zinc mx-auto dark:prose-invert lg:prose-lg">
         <div className="py-8 md:py-10">
-          <Link to="/blogs">Back to all blogs</Link>
+          <Link to="/blogs" prefetch="intent">
+            Back to all blogs
+          </Link>
         </div>
         <div className="mb-10 space-y-4 md:mb-14">
           <h1>{post.title}</h1>
@@ -147,8 +149,9 @@ export default function BlogPostDetails() {
             {post.labels.map(label => (
               <Link
                 key={label}
+                prefetch="intent"
                 to={`/blogs?labels=${encodeURIComponent(label)}`}
-                className="rounded-sm bg-muted px-2 py-1 text-sm font-medium text-muted-foreground no-underline focus-within:underline hover:underline"
+                className="rounded-sm bg-muted px-2 py-1 text-sm font-medium text-muted-foreground no-underline outline-none ring-foreground hover:underline focus-visible:underline focus-visible:ring-2"
               >
                 {label}
               </Link>

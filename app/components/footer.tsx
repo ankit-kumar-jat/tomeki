@@ -7,19 +7,31 @@ function Footer() {
     <footer className="mt-16">
       <div className="container flex flex-col items-center gap-6 border-b py-4 text-xs md:flex-row md:items-end md:justify-between">
         <div>
-          <Link to="/" className="flex items-center gap-1">
+          <Link to="/" prefetch="intent" className="flex items-center gap-1">
             <Logo height={36} width={36} />
             <span className="text-xl font-medium">Tomeki</span>
           </Link>
         </div>
         <div className="flex items-center justify-center gap-4">
-          <Link className="hover:underline" to="/privacy-policy">
+          <Link
+            className="hover:underline"
+            prefetch="intent"
+            to="/privacy-policy"
+          >
             Privacy Policy
           </Link>
-          <Link className="hover:underline" to="/terms-of-use">
+          <Link
+            className="hover:underline"
+            prefetch="intent"
+            to="/terms-of-use"
+          >
             Terms Of Use
           </Link>
-          <Link className="hover:underline" to="/affiliate-disclosure">
+          <Link
+            className="hover:underline"
+            prefetch="intent"
+            to="/affiliate-disclosure"
+          >
             Affiliate Disclosure
           </Link>
         </div>

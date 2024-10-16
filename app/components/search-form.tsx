@@ -32,14 +32,14 @@ function SearchForm({
         autoComplete="off"
       />
       <button
-        className="absolute right-14 top-0 px-2 py-3 outline-none ring-primary focus-within:ring-2 peer-placeholder-shown:invisible"
+        className="absolute right-14 top-0 px-2 py-3 outline-none ring-primary focus-visible:ring-2 peer-placeholder-shown:invisible"
         onClick={clearSearchInput}
         type="reset"
       >
         <span className="sr-only">Clear</span>
         <XIcon />
       </button>
-      <button className="rounded-e-full border-l p-3 pr-4 outline-none ring-primary focus-within:ring-2">
+      <button className="rounded-e-full border-l p-3 pr-4 outline-none ring-primary focus-visible:ring-2">
         <span className="sr-only">Search</span>
         <SearchIcon />
       </button>

@@ -102,7 +102,10 @@ export default function Index() {
               ))}
             </div>
             <div className="my-6 text-center">
-              <Link to="/blogs" className="font-medium underline">
+              <Link
+                to="/blogs"
+                className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
+              >
                 View More
               </Link>
             </div>
@@ -123,7 +126,10 @@ export default function Index() {
               ))}
             </div>
             <div className="my-6 text-center">
-              <Link to="/blogs?labels=List" className="font-medium underline">
+              <Link
+                to="/blogs?labels=List"
+                className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
+              >
                 View More
               </Link>
             </div>
@@ -144,7 +150,10 @@ export default function Index() {
               ))}
             </div>
             <div className="my-6 text-center">
-              <Link to="/blogs?labels=Review" className="font-medium underline">
+              <Link
+                to="/blogs?labels=Review"
+                className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
+              >
                 View More
               </Link>
             </div>
@@ -157,7 +166,7 @@ export default function Index() {
               <Link
                 to={`/blogs?labels=${encodeURIComponent(label)}`}
                 key={label}
-                className="flex flex-col justify-center rounded-md border px-4 py-6"
+                className="flex flex-col justify-center rounded-xl border px-4 py-6 outline-none ring-foreground focus-visible:ring-2"
               >
                 <span className="line-clamp-2 text-lg font-medium md:text-xl">
                   {label}
@@ -184,7 +193,7 @@ export default function Index() {
             <div className="my-6 text-center">
               <Link
                 to="/blogs?labels=Author+Spotlight"
-                className="font-medium underline"
+                className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
               >
                 View More
               </Link>

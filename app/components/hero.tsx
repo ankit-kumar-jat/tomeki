@@ -8,7 +8,7 @@ function Hero() {
       <h1 className="mx-auto max-w-4xl text-balance text-3xl drop-shadow-md sm:text-5xl lg:text-6xl">
         Explore Books and Discover Your Next Read
       </h1>
-      <p className="mx-auto mt-4 max-w-md text-balance text-sm ring-primary drop-shadow-sm focus-within:ring-2 md:text-base lg:max-w-xl">
+      <p className="mx-auto mt-4 max-w-md text-balance text-sm drop-shadow-sm md:text-base lg:max-w-xl">
         Dive into reviews, recommendations, and everything book-related. Whether
         you're a casual reader or a bibliophile, Tomeki has something for you.
       </p>
@@ -23,7 +23,7 @@ function Hero() {
           className="h-12 w-full rounded-s-full bg-transparent pl-6 outline-none ring-primary placeholder:text-foreground/50 placeholder:drop-shadow-sm focus-within:ring-2"
           placeholder="Type here to search"
         />
-        <button className="rounded-e-full border-l border-l-foreground/30 p-3 pr-4 outline-none ring-primary focus-within:ring-2">
+        <button className="rounded-e-full border-l border-l-foreground/30 p-3 pr-4 outline-none ring-primary focus-visible:ring-2">
           <span className="sr-only">Search</span>
           <SearchIcon />
         </button>

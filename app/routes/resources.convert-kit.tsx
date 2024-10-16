@@ -127,7 +127,7 @@ export function NewsletterSubscriptionForm() {
           <input type="text" name="mypot" hidden defaultValue="" />
           <button
             disabled={state === 'submitting'}
-            className="min-w-32 rounded-e-full border-l border-l-foreground/30 p-3 pr-4 outline-none ring-primary focus-within:ring-2"
+            className="min-w-32 rounded-e-full border-l border-l-foreground/30 p-3 pr-4 outline-none ring-primary focus-visible:ring-2"
           >
             {state === 'submitting' ? 'Subscribing...' : 'Subscibe'}
           </button>

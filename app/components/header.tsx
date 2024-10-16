@@ -15,19 +15,25 @@ function Header({ themePreference }: { themePreference?: Theme | null }) {
   return (
     <header className="container border-b border-border py-2 sm:py-4">
       <div className="flex flex-wrap items-center justify-between gap-4 sm:flex-row">
-        <Link to="/" className="flex items-center gap-1 md:min-w-32">
+        <Link
+          to="/"
+          prefetch="intent"
+          className="-ml-2 flex items-center gap-1 rounded-lg p-1 outline-none ring-foreground focus-visible:ring-2 md:min-w-32"
+        >
           <Logo height={36} width={36} />
           <span className="text-xl font-medium">Tomeki</span>
         </Link>
 
-        <nav className="order-3 flex w-full flex-wrap gap-3 sm:order-none sm:w-auto md:gap-4">
+        <nav className="order-3 flex w-full flex-wrap sm:order-none sm:w-auto md:gap-1">
           {navLinks.map(({ title, ...rest }) => (
             <NavLink
               key={title}
+              prefetch="intent"
               className={({ isActive }) =>
                 cn(
-                  'opacity-85 hover:opacity-100 focus-visible:opacity-100',
-                  isActive && 'font-medium opacity-100',
+                  'relative rounded-lg px-2 opacity-85 outline-none ring-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2',
+                  isActive &&
+                    'font-medium underline underline-offset-4 opacity-100',
                 )
               }
               {...rest}
