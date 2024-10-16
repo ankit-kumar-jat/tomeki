@@ -131,12 +131,12 @@ export async function getBlogSitemapEntries(): Promise<SitemapEntry[]> {
   const postEntries: SitemapEntry[] = feedRes.posts.map(post => ({
     route: `/blogs${post.path}`,
     lastmod: post.updatedAt,
-    priority: 0.7,
+    priority: 0.8,
   }))
 
   const labelEntries: SitemapEntry[] = feedRes.labels.map(label => ({
     route: `/blogs?labels=${encodeURIComponent(label)}`,
-    priority: 0.5,
+    priority: 0.7,
   }))
 
   return [...postEntries, ...labelEntries]

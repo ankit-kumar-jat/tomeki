@@ -160,7 +160,7 @@ export default function Index() {
           </Section>
         ) : null}
 
-        <Section title="Browse By Label">
+        <Section title="Browse By Topic">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {labels.map(label => (
               <Link
