@@ -1,9 +1,14 @@
+import { MetaFunction } from '@remix-run/cloudflare'
 import { Link, useLocation } from '@remix-run/react'
 import { ErrorPage } from '~/components/error'
 import { GeneralErrorBoundary } from '~/components/error-boundary'
 
 export async function loader() {
   throw new Response('Not found', { status: 404 })
+}
+
+export const meta: MetaFunction = () => {
+  return [{ title: 'Page Not Found!' }]
 }
 
 export default function NotFound() {
