@@ -68,7 +68,7 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        'Tomeki Book Blog - Your Gateway to Books, Reviews, and Recommendations',
+        'Tomeki - Your Gateway to Best Books, Reviews, and Recommendations',
     },
     {
       name: 'description',

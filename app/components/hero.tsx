@@ -6,7 +6,7 @@ function Hero() {
   return (
     <div className="relative py-14 text-center md:py-20 lg:py-24">
       <h1 className="mx-auto max-w-4xl text-balance text-3xl drop-shadow-md sm:text-5xl lg:text-6xl">
-        Explore Books and Discover Your Next Read
+        Your Guide to the Best Books
       </h1>
       <p className="mx-auto mt-4 max-w-md text-balance text-sm drop-shadow-sm md:text-base lg:max-w-xl">
         Dive into reviews, recommendations, and everything book-related. Whether
