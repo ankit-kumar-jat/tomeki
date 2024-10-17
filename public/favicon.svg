@@ -1,18 +1,17 @@
-<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
   <style>
     .favicon-stroke {
     stroke-width: 4px;
     stroke: #0a0a0a;
     }
-
     @media (prefers-color-scheme: dark) {
     .favicon-stroke { stroke: #ffffff }
     }
   </style>
-  <g id="logo-boxes">
+  <g id="logo-boxes" transform="matrix(1, 0, 0, 1, 5, 5)">
     <rect class="favicon-stroke" x="5" y="15" width="40" height="60" rx="5" ry="5" fill="none"
-      stroke-width="4" />
+      stroke-width="4"></rect>
     <rect class="favicon-stroke" x="15" width="40" height="60" rx="5" ry="5" fill="none"
-      stroke-width="4" y="5" />
+      stroke-width="4" y="5"></rect>
   </g>
 </svg>
