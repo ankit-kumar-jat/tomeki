@@ -6,7 +6,7 @@ import { getFullURL } from '~/lib/utils'
 export async function loader({ request }: LoaderFunctionArgs) {
   const { posts } = await getBlogFeed({ maxResults: 1000 })
 
-  const blogUrl = getFullURL('/blogs')
+  const blogUrl = getFullURL('/explore')
 
   const rss = `
     <rss xmlns:blogChannel="${blogUrl}" version="2.0">
@@ -33,8 +33,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
                   ? new Date(post.publishedAt).toUTCString()
                   : new Date().toUTCString()
               }</pubDate>
-              <link>${getFullURL(`/blogs${post.path}`)}</link>
-              <guid>${getFullURL(`/blogs${post.path}`)}</guid>
+              <link>${getFullURL(post.path)}</link>
+              <guid>${getFullURL(post.path)}</guid>
             </item>
           `.trim(),
           )

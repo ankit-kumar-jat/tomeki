@@ -1,3 +1,4 @@
+import { SEOHandle } from '@nasa-gcn/remix-seo'
 import { MetaFunction } from '@remix-run/cloudflare'
 import { Link, useLocation } from '@remix-run/react'
 import { ErrorPage } from '~/components/error'
@@ -9,6 +10,10 @@ export async function loader() {
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Page Not Found!' }]
+}
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
 }
 
 export default function NotFound() {

@@ -17,7 +17,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const q = url.searchParams.get('q')
   const page = Number(url.searchParams.get('page')) || 0
-  const labels = url.searchParams.getAll('label').toString()
+  const labels = url.searchParams.getAll('category').toString()
 
   const headers: ResponseInit['headers'] = {
     'Cache-Control': 'public, max-age=3600, s-maxage=300',
@@ -153,11 +153,7 @@ function PostCard({
           loading="lazy"
         />
 
-        <Link
-          to={`/blogs${path}`}
-          className="absolute inset-0 outline-none"
-          tabIndex={-1}
-        >
+        <Link to={path} className="absolute inset-0 outline-none" tabIndex={-1}>
           <span className="sr-only">View {title}</span>
         </Link>
       </div>
@@ -176,7 +172,7 @@ function PostCard({
           </p>
         ) : null}
         <Link
-          to={`/blogs${path}`}
+          to={path}
           className="line-clamp-2 text-lg font-medium outline-none sm:line-clamp-1 md:text-xl"
         >
           {title}

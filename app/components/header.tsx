@@ -7,7 +7,7 @@ import { ThemeSwitch } from '~/routes/resources.theme-switch'
 const navLinks = [
   { to: '/', title: 'Home', end: true },
   { to: '/search', title: 'Search' },
-  { to: '/blogs', title: 'Explore' },
+  { to: '/explore', title: 'Explore' },
   { to: '/about', title: 'About' },
 ]
 

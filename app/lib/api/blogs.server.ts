@@ -1,4 +1,4 @@
-// !NOTE: For blogs we use google blogger api and you can update them from blogger
+// !NOTE: For posts we use google blogger api and you can update them from blogger
 
 import { BlogFeed, BlogPosts, Post } from '~/lib/blogger-api'
 import {
@@ -129,14 +129,16 @@ export async function getBlogSitemapEntries(): Promise<SitemapEntry[]> {
   const feedRes = await getBlogFeed({ maxResults: 2000 })
 
   const postEntries: SitemapEntry[] = feedRes.posts.map(post => ({
-    route: `/blogs${post.path}`,
+    route: `${post.path}`,
     lastmod: post.updatedAt,
     priority: 0.8,
+    changefreq: 'weekly',
   }))
 
   const labelEntries: SitemapEntry[] = feedRes.labels.map(label => ({
-    route: `/blogs?labels=${encodeURIComponent(label)}`,
+    route: `/explore?category=${encodeURIComponent(label)}`,
     priority: 0.7,
+    changefreq: 'weekly',
   }))
 
   return [...postEntries, ...labelEntries]

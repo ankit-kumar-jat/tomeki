@@ -27,7 +27,7 @@ export function PostCard({
           loading="lazy"
         />
         <Link
-          to={`/blogs${postPath}`}
+          to={`${postPath}`}
           className="absolute inset-0 outline-none"
           tabIndex={-1}
           prefetch="intent"
@@ -37,7 +37,7 @@ export function PostCard({
       </div>
       <div className="space-y-4">
         <Link
-          to={`/blogs${postPath}`}
+          to={`${postPath}`}
           prefetch="intent"
           className="text-center text-xl font-medium outline-none hover:underline focus:underline focus-visible:underline active:underline lg:text-3xl"
         >

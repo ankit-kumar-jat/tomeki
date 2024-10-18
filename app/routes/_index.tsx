@@ -103,7 +103,7 @@ export default function Index() {
             </div>
             <div className="my-6 text-center">
               <Link
-                to="/blogs"
+                to="/explore"
                 className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
               >
                 View More
@@ -127,7 +127,7 @@ export default function Index() {
             </div>
             <div className="my-6 text-center">
               <Link
-                to="/blogs?labels=List"
+                to="/explore?category=List"
                 className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
               >
                 View More
@@ -151,7 +151,7 @@ export default function Index() {
             </div>
             <div className="my-6 text-center">
               <Link
-                to="/blogs?labels=Review"
+                to="/explore?category=Review"
                 className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
               >
                 View More
@@ -164,7 +164,7 @@ export default function Index() {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {labels.map(label => (
               <Link
-                to={`/blogs?labels=${encodeURIComponent(label)}`}
+                to={`/explore?category=${encodeURIComponent(label)}`}
                 key={label}
                 className="flex flex-col justify-center rounded-xl border px-4 py-6 outline-none ring-foreground focus-visible:ring-2"
               >
@@ -192,7 +192,7 @@ export default function Index() {
             </div>
             <div className="my-6 text-center">
               <Link
-                to="/blogs?labels=Author+Spotlight"
+                to="/explore?category=Author+Spotlight"
                 className="rounded-full px-3 py-1 font-medium underline outline-none ring-foreground focus-visible:ring-2"
               >
                 View More
