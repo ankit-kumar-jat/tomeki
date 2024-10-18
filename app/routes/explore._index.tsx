@@ -174,7 +174,7 @@ export default function Blogs() {
           <h1 className="text-balance text-3xl drop-shadow-md sm:text-5xl">
             Explore
           </h1>
-          <p className="text-balance text-base font-medium text-muted-foreground md:text-lg">
+          <p className="mt-3 text-balance text-base font-medium text-muted-foreground md:text-lg">
             {selectedLabelsString ? (
               <>Explore Blogs Tagged with {selectedLabelsString}</>
             ) : (
