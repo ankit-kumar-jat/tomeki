@@ -1,4 +1,5 @@
 import { type LoaderFunctionArgs } from '@remix-run/node'
+import { EXTRACT_DESC } from '~/config/regex'
 import { SITE_NAME } from '~/config/site'
 import { getBlogFeed } from '~/lib/api/blogs.server'
 import { getFullURL } from '~/lib/utils'
@@ -24,7 +25,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
               <title>${cdata(replaceSpecial(post.title))}</title>
               <description>${cdata(
                 replaceSpecial(
-                  post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ??
+                  post.content.match(EXTRACT_DESC)?.[1] ??
                     'This post is... indescribable',
                 ),
               )}</description>

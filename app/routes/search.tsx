@@ -7,6 +7,7 @@ import {
 import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
 import SearchForm from '~/components/search-form'
+import { EXTRACT_DESC } from '~/config/regex'
 import { getBlogFeed } from '~/lib/api/blogs.server'
 import { trackEvent } from '~/lib/gtag.client'
 import { getFullURL, getMetaTitle } from '~/lib/utils'
@@ -38,7 +39,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const formattedPost = searchRes.posts.map(post => ({
     ...post,
     content: undefined,
-    description: post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ?? '',
+    description: post.content.match(EXTRACT_DESC)?.[2] ?? '',
   }))
 
   return json({ ...searchRes, posts: formattedPost, q }, { headers })

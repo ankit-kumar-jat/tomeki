@@ -11,6 +11,7 @@ import {
   useSearchParams,
 } from '@remix-run/react'
 import { useEffect, useMemo, useState } from 'react'
+import { DynamicBlurBackground } from '~/components/dynamic-blur-background'
 import { PostCard } from '~/components/post-card'
 import { Button } from '~/components/ui/button'
 import { SITE_NAME, SITE_URL } from '~/config/site'
@@ -169,19 +170,22 @@ export default function Blogs() {
   return (
     <div className="container my-10">
       <div className="space-y-4 py-10 text-center md:py-14">
-        <h1 className="text-balance text-3xl drop-shadow-md sm:text-5xl">
-          Explore
-        </h1>
-        <p className="mx-auto max-w-lg text-balance text-base font-medium text-muted-foreground md:text-lg">
-          {selectedLabelsString ? (
-            <>Explore Blogs Tagged with {selectedLabelsString}</>
-          ) : (
-            <>
-              Explore the World of Books with {SITE_NAME}: Insights, Reviews,
-              and Recommendations.
-            </>
-          )}
-        </p>
+        <div className="relative mx-auto max-w-lg">
+          <h1 className="text-balance text-3xl drop-shadow-md sm:text-5xl">
+            Explore
+          </h1>
+          <p className="text-balance text-base font-medium text-muted-foreground md:text-lg">
+            {selectedLabelsString ? (
+              <>Explore Blogs Tagged with {selectedLabelsString}</>
+            ) : (
+              <>
+                Explore the World of Books with {SITE_NAME}: Insights, Reviews,
+                and Recommendations.
+              </>
+            )}
+          </p>
+          <DynamicBlurBackground />
+        </div>
       </div>
       <div className="mb-10 mt-4 space-y-4 md:mb-14">
         <p className="text-base font-medium md:text-lg">

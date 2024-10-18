@@ -12,6 +12,7 @@ import { NewsletterSubscriptionForm } from '~/routes/resources.convert-kit'
 import { SITE_NAME, SITE_URL } from '~/config/site'
 import { getBlogPost, getBlogSitemapEntries } from '~/lib/api/blogs.server'
 import { getFullURL, getMetaTitle } from '~/lib/utils'
+import { EXTRACT_COVER_IMG, EXTRACT_DESC } from '~/config/regex'
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const apiKey = context.cloudflare.env.BLOGGER_API_KEY
@@ -31,13 +32,11 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
     id: post.id,
     title: post.title,
     coverImage:
-      post.images?.[0]?.url ??
-      post.content.match(/src=["'](.*?)["']/)?.[1] ??
-      '',
+      post.images?.[0]?.url ?? post.content.match(EXTRACT_COVER_IMG)?.[1] ?? '',
     published: format(new Date(post.published), 'MMMM dd, yyyy'),
     content: post.content,
     labels: post.labels,
-    description: post.content.match(/<(\w+)>(.*?)<\/\1>/)?.[2] ?? '',
+    description: post.content.match(EXTRACT_DESC)?.[1]?.trim() ?? '',
     updatedAt: post.updated,
     publishedAt: post.published,
     path,
