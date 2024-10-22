@@ -8,7 +8,7 @@ export const headers: HeadersFunction = () => {
 }
 
 export const meta: MetaFunction = () => {
-  return [{ title: getMetaTitle('Privacy policy') }]
+  return [{ title: getMetaTitle('Terms of Use') }]
 }
 
 export default function PrivacyPolicy() {
